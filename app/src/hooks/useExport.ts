@@ -3,12 +3,12 @@ import { useEditorStore } from '../store/useEditorStore';
 import { downloadCanvas } from '../utils/downloadCanvas';
 
 export function useExport(canvasRef: RefObject<HTMLCanvasElement | null>) {
-  const { brandId, exportFormat, exportQuality } = useEditorStore();
+  const { brandId, exportFormat, exportQuality, exportScale } = useEditorStore();
 
   const handleExport = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    downloadCanvas(canvas, brandId, exportFormat, exportQuality);
+    downloadCanvas(canvas, brandId, exportFormat, exportQuality, exportScale);
   };
 
   return { handleExport };

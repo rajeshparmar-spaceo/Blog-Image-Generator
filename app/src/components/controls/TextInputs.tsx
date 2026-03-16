@@ -12,7 +12,7 @@ export function TextInputs() {
     chatLines, setChatLines,
   } = useEditorStore();
 
-  const showStepList = (brandId === 'mcb' && variant === 'typeC') || (brandId === 'soc' && variant === 'typeD');
+  const showStepList = variant === 'typeD' && (brandId === 'soc' || brandId === 'soa' || brandId === 'soi' || brandId === 'mcb');
   const showChatLines = brandId === 'welco' && (variant === 'typeA1' || variant === 'typeA2');
 
   return (
@@ -49,7 +49,7 @@ export function TextInputs() {
       {showStepList && (
         <div>
           <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-            {brandId === 'mcb' ? 'Numbered Steps' : 'Feature List'}
+            Feature List
           </label>
           <div className="flex flex-col gap-1.5">
             {stepItems.map((item, i) => (
@@ -64,7 +64,7 @@ export function TextInputs() {
                     setStepItems(next);
                   }}
                   className="flex-1 bg-slate-800 text-slate-100 text-xs rounded-md px-2.5 py-1.5 border border-slate-700 focus:outline-none focus:border-blue-500"
-                  placeholder={`Step ${i + 1}`}
+                  placeholder={`Feature ${i + 1}`}
                 />
                 <button
                   onClick={() => setStepItems(stepItems.filter((_, j) => j !== i))}

@@ -6,7 +6,7 @@ interface ExportPanelProps {
 }
 
 export function ExportPanel({ onExport }: ExportPanelProps) {
-  const { exportFormat, setExportFormat, exportQuality, setExportQuality } = useEditorStore();
+  const { exportFormat, setExportFormat, exportQuality, setExportQuality, exportScale, setExportScale } = useEditorStore();
 
   return (
     <div className="flex items-center gap-4">
@@ -25,6 +25,25 @@ export function ExportPanel({ onExport }: ExportPanelProps) {
             `}
           >
             {fmt}
+          </button>
+        ))}
+      </div>
+
+      {/* Scale selector */}
+      <div className="flex items-center gap-1 border-l border-slate-700 pl-4">
+        {([1, 2, 3] as (1 | 2 | 3)[]).map((s) => (
+          <button
+            key={s}
+            onClick={() => setExportScale(s)}
+            className={`
+              px-2.5 py-1 rounded text-xs font-medium transition-all
+              ${exportScale === s
+                ? 'bg-slate-600 text-white'
+                : 'text-slate-400 hover:text-white hover:bg-slate-700'
+              }
+            `}
+          >
+            {s}x
           </button>
         ))}
       </div>

@@ -2,19 +2,19 @@ import type { EditorState } from '../types';
 import { ICONS } from '../constants/lucideIconData';
 import { drawIcon } from './base/drawIcon';
 import { drawGradientOverlay } from './base/drawGradientOverlay';
+import { drawBulletedFeatureList } from './base/drawBulletedFeatureList';
 import { wrapText } from '../utils/wrapText';
 import { analyzeContent } from '../utils/contentAnalyzer';
 import { drawSharedIllustration } from './sharedIllustrations';
 
 const PRIMARY = '#2ECC71';
 const TEXT_X = 22;
-const TEXT_MAX_WIDTH = 200;
-const FADE_WIDTH = 235;
+const TEXT_MAX_WIDTH = 270;
 
 export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): void {
   const W = 708;
   const H = 374;
-  const { headline, subtitle, variant, selectedIcons, stockImage, logoImages, sourceContent } = state;
+  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages } = state;
 
   // 1. Background
   if (stockImage) {
@@ -41,7 +41,7 @@ export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Pre-wrap to measure block height
   ctx.font = `600 28px Poppins`;
-  const headLines = wrapText(ctx, headline, 210);
+  const headLines = wrapText(ctx, headline, TEXT_MAX_WIDTH);
   ctx.font = `400 16px Poppins`;
   const subLines = wrapText(ctx, subtitle, TEXT_MAX_WIDTH);
 
@@ -50,8 +50,19 @@ export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   const lineH = 36;
   const headToSub = 8;
   const subLineH = 22;
-  const totalH = barH + barToHead + headLines.length * lineH + headToSub + subLines.length * subLineH;
-  const startY = Math.round((H - totalH) / 2);
+  const textH = barH + barToHead + headLines.length * lineH + headToSub + subLines.length * subLineH;
+  const totalIconCount = selectedIcons.length + customIconImages.filter(Boolean).length;
+
+  let variantH = 0;
+  if (variant === 'typeA' && totalIconCount > 0) {
+    variantH = 12 + Math.ceil(totalIconCount / 4) * 40 + (Math.ceil(totalIconCount / 4) - 1) * 12;
+  } else if (variant === 'typeB') {
+    variantH = 12 + 2 * 46 + 8; // 2 rows × 46px + gap
+  } else if (variant === 'typeD' && stepItems.length > 0) {
+    variantH = 12 + Math.min(stepItems.length, 5) * 36;
+  }
+  const totalH = textH + variantH;
+  const startY = state.contentAlignment === 'top' ? 30 : Math.round((H - totalH) / 2);
 
 
   // Headline — narrow maxWidth = 210px stacks words
@@ -72,23 +83,13 @@ export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
     subY += subLineH;
   }
 
-  // 4. Variant-specific overlays
-  if (variant === 'typeB') {
-    drawChatWindowCard(ctx, W, H, PRIMARY);
-  } else if (variant === 'typeC') {
-    drawProductCard(ctx, W, H, PRIMARY);
-  }
-
-  // 5. Icons
-  if (selectedIcons.length > 0) {
-    selectedIcons.slice(0, 3).forEach((iconCfg, i) => {
-      const shapes = ICONS[iconCfg.iconName];
-      if (shapes) {
-        const x = FADE_WIDTH + 30 + i * 80;
-        const y = H / 2;
-        drawIcon(ctx, shapes, x, y, 22, '#FFFFFF', PRIMARY, 26);
-      }
-    });
+  // 4. Variant-specific content
+  if (variant === 'typeA') {
+    drawIconBadges(ctx, selectedIcons, customIconImages, TEXT_X, subY + 12, PRIMARY);
+  } else if (variant === 'typeB') {
+    drawLogoGrid(ctx, TEXT_X, subY + 12, socLogoGridImages);
+  } else if (variant === 'typeD' && stepItems.length > 0) {
+    drawBulletedFeatureList(ctx, stepItems.slice(0, 5), TEXT_X, subY + 12, TEXT_MAX_WIDTH, PRIMARY);
   }
 
   // 6. Logo — full canvas overlay
@@ -96,83 +97,93 @@ export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   if (logo) ctx.drawImage(logo, 0, 0, W, H);
 }
 
-function drawChatWindowCard(ctx: CanvasRenderingContext2D, W: number, H: number, primary: string): void {
-  const cx = W * 0.68;
-  const cy = H * 0.45;
-  const cw = 200;
-  const ch = 150;
+function drawLogoGrid(
+  ctx: CanvasRenderingContext2D,
+  startX: number,
+  startY: number,
+  uploadedImages: (HTMLImageElement | null)[] = [],
+): void {
+  const cellW = 70;
+  const cellH = 46;
+  const gap = 8;
+  const techNames = ['Logo 1', 'Logo 2', 'Logo 3', 'Logo 4', 'Logo 5', 'Logo 6'];
+  const colors = ['#61DAFB', '#339933', '#3178C6', '#2496ED', '#FF9900', '#47A248'];
 
-  ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,0.1)';
-  ctx.shadowBlur = 16;
-  ctx.beginPath();
-  ctx.roundRect(cx - cw / 2, cy - ch / 2, cw, ch, 12);
-  ctx.fillStyle = '#FFFFFF';
-  ctx.fill();
-  ctx.restore();
+  for (let i = 0; i < 6; i++) {
+    const col = i % 3;
+    const row = Math.floor(i / 3);
+    const x = startX + col * (cellW + gap);
+    const y = startY + row * (cellH + gap);
 
-  // Header strip
-  ctx.beginPath();
-  ctx.roundRect(cx - cw / 2, cy - ch / 2, cw, 32, [12, 12, 0, 0]);
-  ctx.fillStyle = primary;
-  ctx.fill();
-
-  ctx.font = '600 11px Inter';
-  ctx.fillStyle = '#FFFFFF';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('Customer Chat', cx, cy - ch / 2 + 16);
-
-  // Fake message lines
-  const lines = [
-    { x: cx - cw / 2 + 10, w: cw * 0.6, top: true },
-    { x: cx, w: cw * 0.45, top: false },
-    { x: cx - cw / 2 + 10, w: cw * 0.5, top: true },
-  ];
-  lines.forEach((l, i) => {
+    ctx.save();
+    ctx.shadowColor = 'rgba(0,0,0,0.08)';
+    ctx.shadowBlur = 8;
     ctx.beginPath();
-    ctx.roundRect(l.x, cy - ch / 2 + 42 + i * 26, l.w, 14, 7);
-    ctx.fillStyle = l.top ? '#F0F8F4' : '#E8F8EE';
+    ctx.roundRect(x, y, cellW, cellH, 8);
+    ctx.fillStyle = '#FFFFFF';
     ctx.fill();
-  });
+    ctx.restore();
+
+    const img = uploadedImages[i];
+    if (img) {
+      const pad = 8;
+      const scale = Math.min((cellW - pad * 2) / img.width, (cellH - pad * 2) / img.height);
+      const dw = img.width * scale;
+      const dh = img.height * scale;
+      ctx.drawImage(img, x + (cellW - dw) / 2, y + (cellH - dh) / 2, dw, dh);
+    } else {
+      ctx.font = '700 10px Inter';
+      ctx.fillStyle = colors[i];
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(techNames[i], x + cellW / 2, y + cellH / 2);
+    }
+  }
 }
 
-function drawProductCard(ctx: CanvasRenderingContext2D, W: number, H: number, primary: string): void {
-  const cx = W * 0.72;
-  const cy = H * 0.5;
-  const cw = 180;
-  const ch = 200;
+function drawIconBadges(
+  ctx: CanvasRenderingContext2D,
+  selectedIcons: EditorState['selectedIcons'],
+  customImages: (HTMLImageElement | null)[],
+  startX: number,
+  startY: number,
+  primary: string,
+): void {
+  type Badge = { kind: 'lucide'; cfg: EditorState['selectedIcons'][number] } | { kind: 'custom'; img: HTMLImageElement };
+  const badges: Badge[] = [
+    ...selectedIcons.map((cfg) => ({ kind: 'lucide' as const, cfg })),
+    ...customImages.filter((img): img is HTMLImageElement => img !== null).map((img) => ({ kind: 'custom' as const, img })),
+  ];
+  if (badges.length === 0) return;
 
-  ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,0.12)';
-  ctx.shadowBlur = 20;
-  ctx.beginPath();
-  ctx.roundRect(cx - cw / 2, cy - ch / 2, cw, ch, 14);
-  ctx.fillStyle = '#FFFFFF';
-  ctx.fill();
-  ctx.restore();
+  const badgeR = 20;
+  const colGap = 12;
+  const rowGap = 12;
+  const maxPerRow = 4;
+  const itemSlot = badgeR * 2 + colGap;
 
-  // Product image area
-  ctx.beginPath();
-  ctx.roundRect(cx - cw / 2, cy - ch / 2, cw, ch * 0.55, [14, 14, 0, 0]);
-  ctx.fillStyle = `${primary}22`;
-  ctx.fill();
+  const rows: typeof badges[] = [];
+  for (let i = 0; i < badges.length; i += maxPerRow) {
+    rows.push(badges.slice(i, i + maxPerRow));
+  }
 
-  // App icon placeholder
-  ctx.beginPath();
-  ctx.arc(cx, cy - ch / 2 + ch * 0.28, 28, 0, Math.PI * 2);
-  ctx.fillStyle = primary;
-  ctx.fill();
-
-  ctx.font = '600 12px Inter';
-  ctx.fillStyle = '#1A1A2E';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'top';
-  ctx.fillText('Mobile App', cx, cy - ch / 2 + ch * 0.6);
-
-  ctx.font = '400 10px Inter';
-  ctx.fillStyle = '#888888';
-  ctx.fillText('★★★★★ 4.9', cx, cy - ch / 2 + ch * 0.75);
+  rows.forEach((row, rowIdx) => {
+    const cy = startY + badgeR + rowIdx * (badgeR * 2 + rowGap);
+    row.forEach((badge, colIdx) => {
+      const cx = startX + colIdx * itemSlot + badgeR;
+      if (badge.kind === 'lucide') {
+        ctx.beginPath();
+        ctx.arc(cx, cy, badgeR, 0, Math.PI * 2);
+        ctx.fillStyle = primary;
+        ctx.fill();
+        const shapes = ICONS[badge.cfg.iconName];
+        if (shapes) drawIcon(ctx, shapes, cx, cy, Math.round(badgeR * 0.6), '#FFFFFF');
+      } else {
+        const size = badgeR * 2;
+        ctx.drawImage(badge.img, cx - size / 2, cy - size / 2, size, size);
+      }
+    });
+  });
 }
 
 function coverFitImage(ctx: CanvasRenderingContext2D, img: HTMLImageElement, w: number, h: number): void {

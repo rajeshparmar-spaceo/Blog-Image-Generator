@@ -11,9 +11,9 @@ export const BRAND_CONFIGS: Record<BrandId, BrandConfig> = {
     canvasWidth: 1000,
     canvasHeight: 500,
     variants: [
-      { key: 'typeA', label: 'Type A — Icon + Text' },
-      { key: 'typeB', label: 'Type B — Photo + Text' },
-      { key: 'typeC', label: 'Type C — Numbered Steps' },
+      { key: 'typeA', label: 'Type A — Icon Badge' },
+      { key: 'typeB', label: 'Type B — Logo Grid' },
+      { key: 'typeD', label: 'Type D — Feature List' },
     ],
   },
   soa: {
@@ -26,9 +26,9 @@ export const BRAND_CONFIGS: Record<BrandId, BrandConfig> = {
     canvasWidth: 708,
     canvasHeight: 374,
     variants: [
-      { key: 'typeA', label: 'Type A — Standard' },
-      { key: 'typeB', label: 'Type B — Chat Window' },
-      { key: 'typeC', label: 'Type C — Product Card' },
+      { key: 'typeA', label: 'Type A — Icon Badge' },
+      { key: 'typeB', label: 'Type B — Logo Grid' },
+      { key: 'typeD', label: 'Type D — Feature List' },
     ],
   },
   soc: {
@@ -43,7 +43,6 @@ export const BRAND_CONFIGS: Record<BrandId, BrandConfig> = {
     variants: [
       { key: 'typeA', label: 'Type A — Icon Badge' },
       { key: 'typeB', label: 'Type B — Logo Grid' },
-      { key: 'typeC', label: 'Type C — Phone Mockup' },
       { key: 'typeD', label: 'Type D — Feature List' },
     ],
   },
@@ -57,9 +56,9 @@ export const BRAND_CONFIGS: Record<BrandId, BrandConfig> = {
     canvasWidth: 708,
     canvasHeight: 374,
     variants: [
-      { key: 'typeA', label: 'Type A — Standard' },
-      { key: 'typeB', label: 'Type B — Connector' },
-      { key: 'typeC', label: 'Type C — Icon Grid' },
+      { key: 'typeA', label: 'Type A — Icon Badge' },
+      { key: 'typeB', label: 'Type B — Logo Grid' },
+      { key: 'typeD', label: 'Type D — Feature List' },
     ],
   },
   taskrhino: {

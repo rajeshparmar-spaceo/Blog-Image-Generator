@@ -40,6 +40,8 @@ export function useCanvasRenderer(canvasRef: RefObject<HTMLCanvasElement | null>
     state.brandId, state.variant, state.soiSize,
     state.headline, state.subtitle, state.stepItems, state.chatLines,
     state.stockImage, state.selectedIcons, state.fontsReady, state.logoImages,
+    state.overlayColor, state.overlayOpacity, state.overlayPosition,
+    state.contentAlignment, state.socLogoGridImages, state.customIconImages,
     canvasRef,
   ]);
 

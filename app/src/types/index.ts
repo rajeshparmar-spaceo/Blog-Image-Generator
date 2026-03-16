@@ -1,6 +1,7 @@
 export type BrandId = 'mcb' | 'soa' | 'soc' | 'soi' | 'taskrhino' | 'welco';
 
 export type ImageMode = 'featured' | 'internal';
+export type ContentAlignment = 'top' | 'center';
 
 export type VisualType = 'steps' | 'comparison' | 'metrics' | 'benefits' | 'process' | 'review' | 'concept';
 
@@ -64,6 +65,7 @@ export interface EditorState {
   selectedIcons: LucideIconConfig[];
   exportFormat: ExportFormat;
   exportQuality: number;
+  exportScale: 1 | 2 | 3;
   fontsReady: boolean;
   logoImages: Partial<Record<BrandId, HTMLImageElement | null>>;
   // Internal image mode
@@ -78,6 +80,9 @@ export interface EditorState {
   overlayColor: string;
   overlayOpacity: number;
   overlayPosition: number;
+  socLogoGridImages: (HTMLImageElement | null)[];
+  customIconImages: (HTMLImageElement | null)[];
+  contentAlignment: ContentAlignment;
 }
 
 export interface EditorActions {
@@ -93,6 +98,7 @@ export interface EditorActions {
   setSelectedIcons: (icons: LucideIconConfig[]) => void;
   setExportFormat: (format: ExportFormat) => void;
   setExportQuality: (quality: number) => void;
+  setExportScale: (scale: 1 | 2 | 3) => void;
   setFontsReady: (ready: boolean) => void;
   setLogoImage: (brandId: BrandId, img: HTMLImageElement | null) => void;
   setImageMode: (mode: ImageMode) => void;
@@ -106,4 +112,7 @@ export interface EditorActions {
   setOverlayColor: (color: string) => void;
   setOverlayOpacity: (opacity: number) => void;
   setOverlayPosition: (position: number) => void;
+  setSocLogoGridImage: (index: number, img: HTMLImageElement | null) => void;
+  setCustomIconImage: (index: number, img: HTMLImageElement | null) => void;
+  setContentAlignment: (alignment: ContentAlignment) => void;
 }

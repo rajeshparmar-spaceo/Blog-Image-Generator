@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { ICONS } from '../../constants/lucideIconData';
 import { useEditorStore } from '../../store/useEditorStore';
 import { BRAND_CONFIGS } from '../../constants/brands';
@@ -33,10 +33,13 @@ function IconPreview({ name, size = 16 }: { name: string; size?: number }) {
 }
 
 export function IconPicker() {
-  const { selectedIcons, setSelectedIcons, brandId } = useEditorStore();
+  const { selectedIcons, setSelectedIcons, customIconImages, setCustomIconImage, brandId } = useEditorStore();
   const primaryColor = BRAND_CONFIGS[brandId].primaryColor;
   const [query, setQuery] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const totalCount = selectedIcons.length + customIconImages.filter(Boolean).length;
 
   const filtered = useMemo(() => {
     const q = query.toLowerCase().replace(/^li_/, '');
@@ -49,8 +52,7 @@ export function IconPicker() {
   function toggleIcon(name: string) {
     if (selectedNames.includes(name)) {
       setSelectedIcons(selectedIcons.filter((ic) => ic.iconName !== name));
-    } else if (selectedIcons.length < 6) {
-      // Auto-position icons in a reasonable area
+    } else if (totalCount < 6) {
       const idx = selectedIcons.length;
       const x = 500 + (idx % 3) * 90;
       const y = 150 + Math.floor(idx / 3) * 90;
@@ -65,11 +67,24 @@ export function IconPicker() {
     }
   }
 
+  function handleCustomFile(index: number, file: File) {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => setCustomIconImage(index, img);
+    img.src = url;
+  }
+
+  function handleCustomChange(index: number, e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) handleCustomFile(index, file);
+    e.target.value = '';
+  }
+
   return (
     <section>
       <div className="flex items-center justify-between mb-2">
         <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-          Icons ({selectedIcons.length}/6)
+          Icons ({totalCount}/6)
         </label>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
@@ -79,7 +94,7 @@ export function IconPicker() {
         </button>
       </div>
 
-      {/* Selected icons chips */}
+      {/* Selected lucide icon chips */}
       {selectedIcons.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mb-2">
           {selectedIcons.map((ic) => (
@@ -96,8 +111,9 @@ export function IconPicker() {
         </div>
       )}
 
+      {/* Lucide icon browser */}
       {isExpanded && (
-        <div>
+        <div className="mb-3">
           <input
             type="text"
             value={query}
@@ -113,11 +129,14 @@ export function IconPicker() {
                   key={name}
                   onClick={() => toggleIcon(name)}
                   title={name.replace('li_', '')}
+                  disabled={!isSelected && totalCount >= 6}
                   className={`
                     flex items-center justify-center w-full aspect-square rounded-lg text-sm transition-all
                     ${isSelected
                       ? 'bg-blue-600 text-white'
-                      : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
+                      : totalCount >= 6
+                        ? 'bg-slate-800 text-slate-600 cursor-not-allowed'
+                        : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
                     }
                   `}
                 >
@@ -126,10 +145,64 @@ export function IconPicker() {
               );
             })}
           </div>
-          {selectedIcons.length >= 6 && (
-            <p className="text-xs text-slate-500 mt-1.5">Maximum 6 icons selected</p>
+          {totalCount >= 6 && (
+            <p className="text-xs text-slate-500 mt-1.5">Maximum 6 icons reached</p>
           )}
         </div>
+      )}
+
+      {/* Custom icon upload — only for SOC, SOA, SOI, MCB */}
+      {(brandId === 'soc' || brandId === 'soa' || brandId === 'soi' || brandId === 'mcb') && (
+      <div className="border-t border-slate-700 pt-3">
+        <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Custom Icons (PNG / SVG)</p>
+        <div className="grid grid-cols-6 gap-1.5">
+          {Array.from({ length: 6 }).map((_, i) => {
+            const img = customIconImages[i];
+            return (
+              <div key={i} className="flex flex-col gap-1">
+                <button
+                  onClick={() => {
+                    if (img) {
+                      setCustomIconImage(i, null);
+                    } else {
+                      inputRefs.current[i]?.click();
+                    }
+                  }}
+                  title={img ? 'Click to remove' : `Upload custom icon ${i + 1}`}
+                  className={`
+                    relative flex items-center justify-center w-full aspect-square rounded-lg border border-dashed transition-colors overflow-hidden
+                    ${img
+                      ? 'border-blue-500 bg-blue-600/10 hover:border-red-400 hover:bg-red-600/10'
+                      : totalCount >= 6
+                        ? 'border-slate-700 bg-slate-800 opacity-40 cursor-not-allowed'
+                        : 'border-slate-600 bg-slate-800 hover:border-slate-400 hover:bg-slate-700'
+                    }
+                  `}
+                  disabled={!img && totalCount >= 6}
+                >
+                  {img ? (
+                    <img
+                      src={img.src}
+                      alt={`custom ${i + 1}`}
+                      className="w-full h-full object-contain p-0.5"
+                    />
+                  ) : (
+                    <span className="text-slate-500 text-lg leading-none">+</span>
+                  )}
+                </button>
+                <input
+                  ref={(el) => { inputRefs.current[i] = el; }}
+                  type="file"
+                  accept=".png,.svg,image/png,image/svg+xml"
+                  className="hidden"
+                  onChange={(e) => handleCustomChange(i, e)}
+                />
+              </div>
+            );
+          })}
+        </div>
+        <p className="text-xs text-slate-500 mt-1.5">Uploaded icons replace empty badge slots on the canvas.</p>
+      </div>
       )}
     </section>
   );

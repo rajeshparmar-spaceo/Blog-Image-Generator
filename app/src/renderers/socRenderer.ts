@@ -8,14 +8,13 @@ import { analyzeContent } from '../utils/contentAnalyzer';
 import { drawSharedIllustration } from './sharedIllustrations';
 
 const PRIMARY = '#E74C3C';
-const FADE_WIDTH = 550;
 const TEXT_X = 60;
 const TEXT_MAX_WIDTH = 420;
 
 export function socRenderer(ctx: CanvasRenderingContext2D, state: EditorState): void {
   const W = 1416;
   const H = 748;
-  const { headline, subtitle, variant, stepItems, selectedIcons, stockImage, logoImages, sourceContent } = state;
+  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent } = state;
 
   // 1. Background
   if (stockImage) {
@@ -51,8 +50,23 @@ export function socRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   const lineH = 52;
   const headToSub = 16;
   const subLineH = 36;
-  const totalH = barH + barToHead + headLines.length * lineH + headToSub + subLines.length * subLineH;
-  const startY = Math.round((H - totalH) / 2);
+  const textH = barH + barToHead + headLines.length * lineH + headToSub + subLines.length * subLineH;
+
+  // Calculate variant content height so the full block is properly centered
+  const totalIconCount = selectedIcons.length + customIconImages.filter(Boolean).length;
+
+  let variantH = 0;
+  if (variant === 'typeA' && totalIconCount > 0) {
+    const rows = Math.ceil(totalIconCount / 4);
+    variantH = 20 + rows * 72 + (rows - 1) * 24;
+  } else if (variant === 'typeB') {
+    variantH = 16 + 2 * 80 + 12; // 2 rows × 80px + gap
+  } else if (variant === 'typeD' && stepItems.length > 0) {
+    variantH = 20 + Math.min(stepItems.length, 5) * 38;
+  }
+
+  const totalH = textH + variantH;
+  const startY = state.contentAlignment === 'top' ? 60 : Math.round((H - totalH) / 2);
 
 
   // Headline
@@ -73,34 +87,13 @@ export function socRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
     subY += subLineH;
   }
 
-  // 4. Variant content
+  // 4. Variant content — all drawn below subtitle
   if (variant === 'typeA') {
-    // Circular icon badge — large centered icon in text zone
-    if (selectedIcons.length > 0) {
-      const iconCfg = selectedIcons[0];
-      const shapes = ICONS[iconCfg.iconName];
-      if (shapes) {
-        drawIcon(ctx, shapes, TEXT_X + 60, subY + 80, 48, '#FFFFFF', PRIMARY, 56);
-      }
-    }
+    drawIconGrid(ctx, selectedIcons, customIconImages, TEXT_X, subY + 20, PRIMARY);
   } else if (variant === 'typeB') {
-    drawLogoGrid(ctx, W, H, PRIMARY);
-  } else if (variant === 'typeC') {
-    drawPhoneMockup(ctx, W, H, subY, PRIMARY);
+    drawLogoGrid(ctx, TEXT_X, subY + 16, PRIMARY, state.socLogoGridImages);
   } else if (variant === 'typeD' && stepItems.length > 0) {
     drawBulletedFeatureList(ctx, stepItems.slice(0, 5), TEXT_X, subY + 20, TEXT_MAX_WIDTH, PRIMARY);
-  }
-
-  // 5. Additional icons for TypeA
-  if (variant === 'typeA' && selectedIcons.length > 1) {
-    selectedIcons.slice(1, 5).forEach((iconCfg, i) => {
-      const shapes = ICONS[iconCfg.iconName];
-      if (shapes) {
-        const x = FADE_WIDTH + 60 + (i % 2) * 180;
-        const y = 160 + Math.floor(i / 2) * 180;
-        drawIcon(ctx, shapes, x, y, 36, '#FFFFFF', PRIMARY, 42);
-      }
-    });
   }
 
   // 6. Logo — full canvas overlay
@@ -108,22 +101,26 @@ export function socRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   if (logo) ctx.drawImage(logo, 0, 0, W, H);
 }
 
-function drawLogoGrid(ctx: CanvasRenderingContext2D, _W: number, _H: number, _primary: string): void {
-  // 2×3 grid of tech logos (colored rectangles as placeholders)
-  const gridX = FADE_WIDTH + 60;
-  const gridY = 80;
-  const cellW = 160;
-  const cellH = 100;
-  const gap = 20;
-  const techNames = ['React', 'Node.js', 'TypeScript', 'Docker', 'AWS', 'MongoDB'];
+function drawLogoGrid(
+  ctx: CanvasRenderingContext2D,
+  startX: number,
+  startY: number,
+  _primary: string,
+  uploadedImages: (HTMLImageElement | null)[] = [],
+): void {
+  const cellW = 126;
+  const cellH = 80;
+  const gap = 12;
+  const techNames = ['Logo 1', 'Logo 2', 'Logo 3', 'Logo 4', 'Logo 5', 'Logo 6'];
   const colors = ['#61DAFB', '#339933', '#3178C6', '#2496ED', '#FF9900', '#47A248'];
 
   for (let i = 0; i < 6; i++) {
     const col = i % 3;
     const row = Math.floor(i / 3);
-    const x = gridX + col * (cellW + gap);
-    const y = gridY + row * (cellH + gap);
+    const x = startX + col * (cellW + gap);
+    const y = startY + row * (cellH + gap);
 
+    // Cell background
     ctx.save();
     ctx.shadowColor = 'rgba(0,0,0,0.08)';
     ctx.shadowBlur = 12;
@@ -133,58 +130,74 @@ function drawLogoGrid(ctx: CanvasRenderingContext2D, _W: number, _H: number, _pr
     ctx.fill();
     ctx.restore();
 
-    ctx.font = '700 14px Inter';
-    ctx.fillStyle = colors[i];
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(techNames[i], x + cellW / 2, y + cellH / 2);
+    const img = uploadedImages[i];
+    if (img) {
+      // Draw uploaded logo image, contained within cell with padding
+      const pad = 12;
+      const maxW = cellW - pad * 2;
+      const maxH = cellH - pad * 2;
+      const scale = Math.min(maxW / img.width, maxH / img.height);
+      const dw = img.width * scale;
+      const dh = img.height * scale;
+      const dx = x + (cellW - dw) / 2;
+      const dy = y + (cellH - dh) / 2;
+      ctx.drawImage(img, dx, dy, dw, dh);
+    } else {
+      // Placeholder text
+      ctx.font = '700 13px Inter';
+      ctx.fillStyle = colors[i];
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(techNames[i], x + cellW / 2, y + cellH / 2);
+    }
   }
 }
 
-function drawPhoneMockup(
+
+function drawIconGrid(
   ctx: CanvasRenderingContext2D,
-  _W: number,
-  H: number,
-  _textY: number,
+  selectedIcons: EditorState['selectedIcons'],
+  customImages: (HTMLImageElement | null)[],
+  startX: number,
+  startY: number,
   primary: string,
 ): void {
-  const phoneX = FADE_WIDTH + 100;
-  const phoneY = 60;
-  const phoneW = 220;
-  const phoneH = H - 130;
+  type Badge = { kind: 'lucide'; cfg: EditorState['selectedIcons'][number] } | { kind: 'custom'; img: HTMLImageElement };
+  const badges: Badge[] = [
+    ...selectedIcons.map((cfg) => ({ kind: 'lucide' as const, cfg })),
+    ...customImages.filter((img): img is HTMLImageElement => img !== null).map((img) => ({ kind: 'custom' as const, img })),
+  ];
+  if (badges.length === 0) return;
 
-  ctx.save();
-  ctx.shadowColor = 'rgba(0,0,0,0.15)';
-  ctx.shadowBlur = 30;
-  ctx.beginPath();
-  ctx.roundRect(phoneX, phoneY, phoneW, phoneH, 30);
-  ctx.fillStyle = '#1A1A2E';
-  ctx.fill();
-  ctx.restore();
+  const badgeR = 36;
+  const iconSize = 22;
+  const colGap = 18;
+  const rowGap = 24;
+  const maxPerRow = 4;
+  const itemSlot = badgeR * 2 + colGap;
 
-  // Screen
-  ctx.beginPath();
-  ctx.roundRect(phoneX + 8, phoneY + 16, phoneW - 16, phoneH - 30, 22);
-  ctx.fillStyle = '#F8F9FA';
-  ctx.fill();
+  const rows: typeof badges[] = [];
+  for (let i = 0; i < badges.length; i += maxPerRow) {
+    rows.push(badges.slice(i, i + maxPerRow));
+  }
 
-  // App header
-  ctx.beginPath();
-  ctx.roundRect(phoneX + 8, phoneY + 16, phoneW - 16, 44, [22, 22, 0, 0]);
-  ctx.fillStyle = primary;
-  ctx.fill();
-
-  ctx.font = '600 12px Inter';
-  ctx.fillStyle = '#FFFFFF';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText('App Name', phoneX + phoneW / 2, phoneY + 38);
-
-  // Notch
-  ctx.beginPath();
-  ctx.roundRect(phoneX + phoneW / 2 - 30, phoneY + 6, 60, 12, 6);
-  ctx.fillStyle = '#2A2A3E';
-  ctx.fill();
+  rows.forEach((row, rowIdx) => {
+    const cy = startY + badgeR + rowIdx * (badgeR * 2 + rowGap);
+    row.forEach((badge, colIdx) => {
+      const cx = startX + colIdx * itemSlot + badgeR;
+      if (badge.kind === 'lucide') {
+        ctx.beginPath();
+        ctx.arc(cx, cy, badgeR, 0, Math.PI * 2);
+        ctx.fillStyle = primary;
+        ctx.fill();
+        const shapes = ICONS[badge.cfg.iconName];
+        if (shapes) drawIcon(ctx, shapes, cx, cy, iconSize, '#FFFFFF');
+      } else {
+        const size = badgeR * 2;
+        ctx.drawImage(badge.img, cx - size / 2, cy - size / 2, size, size);
+      }
+    });
+  });
 }
 
 function coverFitImage(ctx: CanvasRenderingContext2D, img: HTMLImageElement, w: number, h: number): void {

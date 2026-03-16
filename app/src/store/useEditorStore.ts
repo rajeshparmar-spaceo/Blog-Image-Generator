@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { BRAND_CONFIGS } from '../constants/brands';
-import type { BrandId, ChatLine, EditorActions, EditorState, ExportFormat, ImageMode, ImageOpportunity, LucideIconConfig, SoiSize } from '../types';
+import type { BrandId, ChatLine, ContentAlignment, EditorActions, EditorState, ExportFormat, ImageMode, ImageOpportunity, LucideIconConfig, SoiSize, } from '../types';
 
 
 type Store = EditorState & EditorActions;
@@ -23,6 +23,7 @@ export const useEditorStore = create<Store>((set) => ({
   selectedIcons: [],
   exportFormat: 'png',
   exportQuality: 90,
+  exportScale: 1 as (1 | 2 | 3),
   fontsReady: false,
   logoImages: {},
   // Internal image mode
@@ -37,6 +38,9 @@ export const useEditorStore = create<Store>((set) => ({
   overlayColor: '#FFFFFF',
   overlayOpacity: 92,
   overlayPosition: 40,
+  socLogoGridImages: [null, null, null, null, null, null],
+  customIconImages: [null, null, null, null, null, null] as (HTMLImageElement | null)[],
+  contentAlignment: 'center' as ContentAlignment,
 
   // Actions
   setBrandId: (id: BrandId) => set(() => {
@@ -54,6 +58,7 @@ export const useEditorStore = create<Store>((set) => ({
   setSelectedIcons: (selectedIcons: LucideIconConfig[]) => set({ selectedIcons }),
   setExportFormat: (exportFormat: ExportFormat) => set({ exportFormat }),
   setExportQuality: (exportQuality: number) => set({ exportQuality }),
+  setExportScale: (exportScale: 1 | 2 | 3) => set({ exportScale }),
   setFontsReady: (fontsReady: boolean) => set({ fontsReady }),
   setLogoImage: (brandId: BrandId, img: HTMLImageElement | null) =>
     set((s) => ({ logoImages: { ...s.logoImages, [brandId]: img } })),
@@ -68,4 +73,17 @@ export const useEditorStore = create<Store>((set) => ({
   setOverlayColor: (overlayColor: string) => set({ overlayColor }),
   setOverlayOpacity: (overlayOpacity: number) => set({ overlayOpacity }),
   setOverlayPosition: (overlayPosition: number) => set({ overlayPosition }),
+  setSocLogoGridImage: (index: number, img: HTMLImageElement | null) =>
+    set((s) => {
+      const updated = [...s.socLogoGridImages];
+      updated[index] = img;
+      return { socLogoGridImages: updated };
+    }),
+  setCustomIconImage: (index: number, img: HTMLImageElement | null) =>
+    set((s) => {
+      const updated = [...s.customIconImages];
+      updated[index] = img;
+      return { customIconImages: updated };
+    }),
+  setContentAlignment: (contentAlignment: ContentAlignment) => set({ contentAlignment }),
 }));
