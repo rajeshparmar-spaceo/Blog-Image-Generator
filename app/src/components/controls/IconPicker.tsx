@@ -1,0 +1,136 @@
+import { useState, useMemo } from 'react';
+import { ICONS } from '../../constants/lucideIconData';
+import { useEditorStore } from '../../store/useEditorStore';
+import { BRAND_CONFIGS } from '../../constants/brands';
+
+const ALL_ICON_NAMES = Object.keys(ICONS);
+
+function IconPreview({ name, size = 16 }: { name: string; size?: number }) {
+  const shapes = ICONS[name];
+  if (!shapes) return null;
+
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {shapes.map((shape, i) => {
+        if (shape.type === 'path') return <path key={i} d={shape.d} />;
+        if (shape.type === 'circle') return <circle key={i} cx={shape.cx} cy={shape.cy} r={shape.r} />;
+        if (shape.type === 'line') return <line key={i} x1={shape.x1} y1={shape.y1} x2={shape.x2} y2={shape.y2} />;
+        if (shape.type === 'polyline') return <polyline key={i} points={shape.points} />;
+        if (shape.type === 'rect') return <rect key={i} x={shape.x} y={shape.y} width={shape.w} height={shape.h} rx={shape.rx} />;
+        return null;
+      })}
+    </svg>
+  );
+}
+
+export function IconPicker() {
+  const { selectedIcons, setSelectedIcons, brandId } = useEditorStore();
+  const primaryColor = BRAND_CONFIGS[brandId].primaryColor;
+  const [query, setQuery] = useState('');
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const filtered = useMemo(() => {
+    const q = query.toLowerCase().replace(/^li_/, '');
+    if (!q) return ALL_ICON_NAMES.slice(0, 60);
+    return ALL_ICON_NAMES.filter((n) => n.replace('li_', '').includes(q)).slice(0, 80);
+  }, [query]);
+
+  const selectedNames = selectedIcons.map((ic) => ic.iconName);
+
+  function toggleIcon(name: string) {
+    if (selectedNames.includes(name)) {
+      setSelectedIcons(selectedIcons.filter((ic) => ic.iconName !== name));
+    } else if (selectedIcons.length < 6) {
+      // Auto-position icons in a reasonable area
+      const idx = selectedIcons.length;
+      const x = 500 + (idx % 3) * 90;
+      const y = 150 + Math.floor(idx / 3) * 90;
+      setSelectedIcons([...selectedIcons, {
+        iconName: name,
+        x,
+        y,
+        size: 24,
+        color: '#FFFFFF',
+        bgColor: primaryColor,
+      }]);
+    }
+  }
+
+  return (
+    <section>
+      <div className="flex items-center justify-between mb-2">
+        <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+          Icons ({selectedIcons.length}/6)
+        </label>
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="text-xs text-slate-400 hover:text-slate-200 transition-colors"
+        >
+          {isExpanded ? 'Collapse' : 'Browse'}
+        </button>
+      </div>
+
+      {/* Selected icons chips */}
+      {selectedIcons.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 mb-2">
+          {selectedIcons.map((ic) => (
+            <button
+              key={ic.iconName}
+              onClick={() => toggleIcon(ic.iconName)}
+              className="flex items-center gap-1 px-2 py-1 bg-blue-600/30 text-blue-300 rounded-md text-xs hover:bg-red-600/30 hover:text-red-300 transition-colors"
+              title="Click to remove"
+            >
+              <IconPreview name={ic.iconName} size={12} />
+              <span>{ic.iconName.replace('li_', '')}</span>
+            </button>
+          ))}
+        </div>
+      )}
+
+      {isExpanded && (
+        <div>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search icons…"
+            className="w-full bg-slate-800 text-slate-100 text-xs rounded-lg px-3 py-2 border border-slate-700 focus:outline-none focus:border-blue-500 mb-2"
+          />
+          <div className="grid grid-cols-6 gap-1 max-h-36 overflow-y-auto">
+            {filtered.map((name) => {
+              const isSelected = selectedNames.includes(name);
+              return (
+                <button
+                  key={name}
+                  onClick={() => toggleIcon(name)}
+                  title={name.replace('li_', '')}
+                  className={`
+                    flex items-center justify-center w-full aspect-square rounded-lg text-sm transition-all
+                    ${isSelected
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white'
+                    }
+                  `}
+                >
+                  <IconPreview name={name} size={14} />
+                </button>
+              );
+            })}
+          </div>
+          {selectedIcons.length >= 6 && (
+            <p className="text-xs text-slate-500 mt-1.5">Maximum 6 icons selected</p>
+          )}
+        </div>
+      )}
+    </section>
+  );
+}

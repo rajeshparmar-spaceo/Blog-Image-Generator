@@ -1,0 +1,276 @@
+{
+  "brand": {
+    "name": "Space O Technologies",
+    "tagline": "",
+    "logo": {
+      "position": "top-right",
+      "style": "direct-on-image-no-badge",
+      "file": "Logo-Dark-Green.png",
+      "dimensions": {
+        "width": 90,
+        "height": 42,
+        "badgeSize": 0
+      },
+      "margin": {
+        "top": 15,
+        "right": 15
+      },
+      "description": "SPACE [green O circle] TECHNOLOGIES stacked text. Dark uppercase 'SPACE' with green (#2ECC71) circle containing 'O', 'TECHNOLOGIES' in smaller dark uppercase below. No badge background — sits directly on image. Always top-right corner."
+    },
+    "alternativeLogo": {
+      "position": "bottom-right",
+      "style": "white-semi-circle-badge",
+      "usage": "Occasionally for product/ecommerce articles (~14% of images). Used as SECOND logo in addition to top-right placement.",
+      "badgeShape": "white semi-circle/arc clipping at bottom-right corner"
+    }
+  },
+  "colors": {
+    "primary": "#2ECC71",
+    "secondary": "#1A1A1A",
+    "accent": "#3498DB",
+    "background": ["#FFFFFF", "#F0F8F5", "#E8F6EF"],
+    "text": {
+      "headline": "#1A1A1A",
+      "subtitle": "#555555",
+      "body": "#666666"
+    },
+    "chatUI": {
+      "borderAccent": "#3498DB",
+      "cardBackground": "#FFFFFF",
+      "cardShadow": "subtle drop shadow"
+    },
+    "riskIndicators": {
+      "high": "#E74C3C",
+      "moderate": "#F39C12",
+      "low": "#2ECC71"
+    },
+    "gradients": {
+      "background": "linear-gradient(135deg, #FFFFFF 0%, #F0F8F5 50%, #E0F2EB 100%)"
+    }
+  },
+  "typography": {
+    "headline": {
+      "fontFamily": "Poppins, sans-serif",
+      "fontWeight": "600",
+      "fontSize": "30px",
+      "lineHeight": "1.1",
+      "textTransform": "none",
+      "color": "#1A1A1A",
+      "stacking": "1-2 words per line for maximum impact — creates tall, narrow headline block"
+    },
+    "subtitle": {
+      "fontFamily": "Poppins, sans-serif",
+      "fontWeight": "400",
+      "fontSize": "18px",
+      "lineHeight": "1.3",
+      "color": "#555555",
+      "style": "sometimes slightly italic"
+    },
+    "body": {
+      "fontFamily": "Poppins, sans-serif",
+      "fontWeight": "400",
+      "fontSize": "15px",
+      "lineHeight": "1.4",
+      "color": "#666666"
+    }
+  },
+  "layout": {
+    "canvas": { "width": 708, "height": 374, "aspectRatio": "1.89:1" },
+    "primaryStructure": "two-zone-split",
+    "zones": {
+      "leftText": {
+        "widthPercent": "25-30%",
+        "content": ["headline (stacked 1-2 words/line)", "subtitle", "optional small illustrated icons (healthcare only)"],
+        "backgroundOverlay": "soft gradient fade white to mint (#FFFFFF to #F0F8F5), barely perceptible",
+        "padding": { "left": 50, "top": 50 },
+        "verticalAlign": "center"
+      },
+      "rightVisual": {
+        "widthPercent": "70-75%",
+        "content": ["photography of professional at workstation", "topic-relevant screen content on monitor/laptop", "optional floating UI overlays"],
+        "transitionStyle": "soft gradient fade from left zone, no hard edge"
+      },
+      "logoZone": {
+        "position": "top-right corner",
+        "content": ["SPACE O TECHNOLOGIES logo"],
+        "margin": { "top": 15, "right": 15 }
+      }
+    },
+    "headlinePlacement": "left",
+    "visualPlacement": "right",
+    "padding": { "top": 50, "right": 40, "bottom": 50, "left": 50 },
+    "headlineMaxWidth": "30%",
+    "visualMaxWidth": "75%",
+    "headlineVerticalAlign": "center",
+    "headlineStacking": "1-2 words per line for impact — creates narrow, tall text blocks",
+    "variants": {
+      "typeA-guide": {
+        "trigger": "AI/ML guides, development articles, telemedicine topics",
+        "usage": "~57% of images",
+        "headline": "left 25-30%, stacked 1-2 words/line",
+        "visual": "professional at workstation right 70-75%, detailed dashboard/UI on screen",
+        "overlays": "optional — floating UI mockup cards overlaid near screen; optional small illustrated icons in lower-left (healthcare only)",
+        "person": "doctor in white coat (healthcare) or developer/professional (tech), facing LEFT",
+        "screenContent": "complex multi-panel dashboards, AI visualizations, patient data, code editors"
+      },
+      "typeB-topCompanies": {
+        "trigger": "consulting companies, service provider lists",
+        "usage": "~14% of images",
+        "headline": "left 28-30%",
+        "visual": "group photo of professionals in meeting/office right 70-72%",
+        "overlays": "NONE — clean photo only",
+        "person": "group of 4-5 professionals in bright modern meeting room, mixed genders, smiling",
+        "screenContent": "laptops visible showing charts/graphs (part of scene, not overlay)"
+      },
+      "typeC-productShowcase": {
+        "trigger": "ecommerce AI, chatbot, product-focused articles",
+        "usage": "~14% of images",
+        "headline": "left 25-28%",
+        "visual": "person at laptop right; floating product cards + chatbot/AI conversation windows in center overlapping both zones",
+        "overlays": "product card (white, with image/price/rating/buttons) + AI chat window (white rounded card with blue border, user/bot messages)",
+        "person": "casual attire, at laptop",
+        "screenContent": "shown via floating overlay cards, not directly on laptop screen",
+        "backgroundNote": "soft mint/teal gradient more pronounced on left"
+      },
+      "typeD-mobileApp": {
+        "trigger": "symptom checkers, mobile apps, phone-based interfaces",
+        "usage": "~14% of images",
+        "headline": "left 28-30%",
+        "visual": "person holding smartphone right with app UI visible on screen",
+        "overlays": "holographic/translucent floating UI elements above device — semi-transparent panels with body scans, risk indicators (red/orange/green), chat bubbles, security icons",
+        "person": "holding smartphone, may face RIGHT (exception to normal left-facing rule) to show phone screen",
+        "screenContent": "app UI on phone: symptom list, urgency level, confidence %, recommendation, action buttons"
+      }
+    }
+  },
+  "logoPlacement": {
+    "primaryPosition": "top-right",
+    "primaryStyle": "direct placement on image, no badge background",
+    "margin": { "top": 15, "right": 15 },
+    "size": { "height": 42, "width": 90 },
+    "visibility": "present in 100% of reference images",
+    "alternativePosition": {
+      "position": "bottom-right",
+      "style": "white semi-circle/arc badge clipping at corner",
+      "usage": "occasional, for product/tool articles (~14%), used as SECOND logo alongside top-right"
+    }
+  },
+  "visualStyle": {
+    "tone": "professional, tech-forward, innovative, healthcare-focused",
+    "imageStyle": "realistic photography of professionals at workstations with detailed screen content and optional floating UI overlays",
+    "photographyComposition": {
+      "subject": "professional person(s) at workstation with laptop/monitor showing topic-relevant UI",
+      "cameraAngle": "side profile or 3/4 view",
+      "faceDirection": "facing LEFT toward text zone (~71%); Type D mobile may face RIGHT (~29%)",
+      "positioning": "person in right 50-65% of canvas",
+      "expression": "neutral, focused, professional; smiling in group photos",
+      "posture": "seated at desk (Types A, B, C), holding device (Type D)",
+      "environment": "clean, bright, modern workspace with natural light",
+      "depthOfField": "shallow — softly blurred background",
+      "genderDistribution": "~57% male individual, ~29% female individual, ~14% mixed groups",
+      "screenContent": {
+        "importance": "PRIMARY visual element — detailed, realistic, topic-relevant UI on screens",
+        "healthcare": "complex multi-panel medical dashboards: brain neural network viz, patient vitals (BP, temp), video calls with patients, X-rays, EHR data, urgency indicators, clinical notes",
+        "ai-ml": "AI dashboards, MLOps tools, neural network visualizations, data run tables, model performance charts",
+        "consulting": "charts, graphs, presentations visible on laptops (part of scene)",
+        "ecommerce": "shown via floating overlay cards (product cards, chat windows), not directly on screen",
+        "mobile": "app UI on phone screen: symptom checkers, urgency levels, recommendations"
+      },
+      "categorySpecific": {
+        "healthcare": "doctor in white coat at desk with medical dashboard on monitor; video calls with patients; clinical notes overlay",
+        "ai-ml": "developer at laptop with AI dashboards, MLOps tools, neural network visualizations on screen",
+        "consulting": "group of professionals in bright meeting room with glass windows, laptops with charts",
+        "ecommerce": "person at laptop; product interfaces and chatbot windows as floating overlays",
+        "mobile": "person holding smartphone with app UI visible on screen, holographic floating elements"
+      }
+    },
+    "overlayElements": {
+      "description": "Floating UI overlays are a distinctive SOA visual storytelling element. Present in ~57% of images. They convey the article topic by showing actual product interfaces.",
+      "appScreenshots": {
+        "placement": "overlaid on or near the screen in photo, slightly angled or straight",
+        "style": "white/dark cards with realistic UI content, subtle drop shadow"
+      },
+      "clinicalNotes": {
+        "placement": "overlaid on laptop screen or floating beside it",
+        "style": "white card with structured sections: Symptoms, Assessment, Plan — clean medical documentation format"
+      },
+      "chatWindows": {
+        "placement": "center of canvas, overlapping text-photo boundary",
+        "style": "rounded white card with 'AI Assistant' header, light blue (#3498DB) top border accent, user avatar + message, bot icon + response"
+      },
+      "productCards": {
+        "placement": "floating above or beside the laptop/monitor",
+        "style": "white card with product image, name, price, star rating, feature tags, action buttons (Add to Cart, Buy It Now)"
+      },
+      "holographicUI": {
+        "placement": "floating above phone/device (Type D layouts)",
+        "style": "semi-transparent panels (~60-70% opacity) with body scan silhouette, color-coded risk indicators (red HIGH, orange MODERATE, green LOW), chat bubbles, lock/security icon"
+      },
+      "circularBrandIcons": {
+        "placement": "floating above laptop with hand-drawn arrow pointing to them",
+        "style": "circular badge (50-60px) with tool logo, connected by thin hand-drawn curved dark blue/black arrow"
+      }
+    },
+    "accentElements": {
+      "handDrawnArrows": {
+        "style": "thin curved dark blue/black stroke, casual hand-drawn feel",
+        "usage": "connecting text area to floating tool/brand icon",
+        "frequency": "~14% of images"
+      },
+      "smallIllustratedIcons": {
+        "position": "lower-left zone below headline",
+        "style": "thin outlined line drawings, 2px stroke, dark outlines with green (#2ECC71) accent fills/highlights",
+        "content": "medical/health themed: cross, chat bubble, heart, phone, person icon",
+        "size": "small cluster ~80-120px total area",
+        "usage": "ONLY in healthcare/telemedicine Type A layouts (~14% of images)"
+      },
+      "backgroundGradient": {
+        "coverage": "left text zone only",
+        "style": "very soft white-to-mint (#FFFFFF to #F0F8F5), barely perceptible",
+        "intensity": "more pronounced in Type C product showcase images"
+      }
+    },
+    "backgroundTexture": "soft white-to-mint gradient in text zone, realistic office photography in visual zone, no hard edge between zones",
+    "iconStyle": "product screenshots and UI previews as primary visual elements; thin outlined icons as secondary accents (healthcare only)"
+  },
+  "categories": {
+    "ai": {
+      "metaphors": ["neural network", "AI brain", "chatbot interface", "machine learning dashboard"],
+      "accentColor": "#3498DB",
+      "screenContent": "AI dashboards, MLOps tools, neural network visualizations, data runs",
+      "overlays": "optional circular tool icon with hand-drawn arrow"
+    },
+    "telemedicine": {
+      "metaphors": ["video call with doctor", "health dashboard", "patient monitoring", "medical app"],
+      "accentColor": "#2ECC71",
+      "screenContent": "medical dashboards, patient vitals, video calls, X-rays, EHR data",
+      "overlays": "clinical notes card, small illustrated medical icons in lower-left",
+      "personNote": "doctor in white coat"
+    },
+    "ecommerce": {
+      "metaphors": ["shopping interface", "product catalog", "AI assistant chat", "conversion funnel"],
+      "accentColor": "#2ECC71",
+      "screenContent": "shown via floating overlay cards (not on screen)",
+      "overlays": "product card + AI chat window overlapping both zones"
+    },
+    "consulting": {
+      "metaphors": ["team meeting", "strategy board", "business discussion", "office collaboration"],
+      "accentColor": "#2ECC71",
+      "screenContent": "charts/graphs on laptops (part of scene)",
+      "overlays": "NONE — clean group photo"
+    },
+    "mobile": {
+      "metaphors": ["health app", "symptom checker", "mobile interface", "smartphone UI"],
+      "accentColor": "#2ECC71",
+      "screenContent": "app UI on phone screen: symptom list, urgency, recommendations",
+      "overlays": "holographic/translucent floating elements above device",
+      "personNote": "holding smartphone, may face RIGHT"
+    },
+    "default": {
+      "metaphors": ["technology innovation", "software development", "digital transformation", "modern tech"],
+      "accentColor": "#2ECC71",
+      "screenContent": "relevant dashboard or tool interface",
+      "overlays": "optional floating UI cards near screen"
+    }
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "brand": {
+    "name": "Space O Technologies",
+    "tagline": "",
+    "logo": {
+      "position": "bottom-right",
+      "style": "dark-text-logo",
+      "file": "Logo-Dark-Green.png",
+      "dimensions": {
+        "width": 130,
+        "height": 35,
+        "badgeSize": 0
+      },
+      "margin": {
+        "right": 20,
+        "bottom": 20
+      },
+      "description": "SPACE O TECHNOLOGIES dark text logo with green 'O' circle. No background badge. Placed directly on image in bottom-right corner. Some images use a white semi-circle badge background similar to MCB style."
+    }
+  },
+  "colors": {
+    "primary": "#A3C423",
+    "secondary": "#6C757D",
+    "accent": "#A3C423",
+    "background": ["#FFFFFF", "#F4F4F4", "#F8F8F8"],
+    "text": {
+      "headline": "#1A1818",
+      "subtitle": "#6C757D",
+      "body": "#1A1818"
+    },
+    "gradients": {
+      "background": "linear-gradient(135deg, #FFFFFF 0%, #F4F4F4 100%)"
+    }
+  },
+  "typography": {
+    "headline": {
+      "fontFamily": "Poppins, sans-serif",
+      "fontWeight": "600",
+      "fontSize": "30px",
+      "lineHeight": "1.1",
+      "textTransform": "none"
+    },
+    "subtitle": {
+      "fontFamily": "Poppins, sans-serif",
+      "fontWeight": "600",
+      "fontSize": "16px",
+      "lineHeight": "1.3"
+    }
+  },
+  "layout": {
+    "canvas": {
+      "width": 708,
+      "height": 374,
+      "standard": { "width": 708, "height": 374, "aspectRatio": "1.89:1", "usage": "Top Companies lists, hiring/cost articles" },
+      "wide": { "width": 1400, "height": 748, "aspectRatio": "1.87:1", "usage": "Healthcare guides, development tutorials, technical deep-dives" }
+    },
+    "primaryStructure": "two-zone-split",
+    "zones": {
+      "leftText": {
+        "widthPercent": "30-40%",
+        "content": ["headline", "subtitle", "process-icons", "company-logo-badges"],
+        "backgroundOverlay": "semi-transparent light wash (#FFFFFF to #F4F4F4, 85-95% opacity)"
+      },
+      "rightVisual": {
+        "widthPercent": "55-70%",
+        "content": ["photography", "UI-mockups", "overlaid-elements"],
+        "transitionStyle": "soft gradient fade, no hard edge"
+      }
+    },
+    "headlinePlacement": "left",
+    "visualPlacement": "right",
+    "padding": {
+      "standard": { "top": 60, "right": 40, "bottom": 60, "left": 60 },
+      "wide": { "top": 80, "right": 40, "bottom": 60, "left": 80 }
+    },
+    "headlineMaxWidth": "40%",
+    "visualMaxWidth": "70%",
+    "headlineVerticalAlign": "center-biased-upper-third",
+    "headlineStacking": "1-3 words per line for impact",
+    "variants": {
+      "typeA-topCompanies": {
+        "trigger": "listicle posts (Top X Companies)",
+        "headline": "top-left",
+        "visual": "circular-cropped photo center",
+        "extras": "company logo badges stacked vertically on right with green dotted connector lines, OR 2x3 grid below headline"
+      },
+      "typeB-guide": {
+        "trigger": "technical guides, development articles",
+        "headline": "left 30-40%",
+        "visual": "full-bleed photography right 60-70%, developer at workstation",
+        "extras": "floating UI mockup cards overlaid on photo, process flow icons in circles with arrows in lower-left"
+      },
+      "typeC-infographic": {
+        "trigger": "map/data-centric posts (outsourcing, nearshore)",
+        "headline": "centered at top",
+        "visual": "full-width illustrated map or infographic",
+        "extras": "location pins, connection arrows, logo bottom-right"
+      },
+      "typeD-cost": {
+        "trigger": "cost breakdowns, hiring guides",
+        "headline": "left",
+        "visual": "person photo right with blurred background",
+        "extras": "floating profile cards or pricing UI elements, decorative 3D elements (coins, icons)"
+      }
+    }
+  },
+  "logoPlacement": {
+    "standard": {
+      "position": "bottom-right or top-right",
+      "style": "direct placement, no badge background"
+    },
+    "wide": {
+      "position": "bottom-right",
+      "style": "white semi-circle/arc badge background"
+    },
+    "margin": { "right": 20, "bottom": 20 }
+  },
+  "visualStyle": {
+    "tone": "professional, corporate, trustworthy",
+    "imageStyle": "realistic photography with professionals in modern office/tech environments",
+    "photographyComposition": {
+      "subject": "professional person(s) working at computer/laptop in modern office",
+      "cameraAngle": "side profile or 3/4 view facing inward toward text zone",
+      "positioning": "person in right 50-60% of canvas",
+      "environment": "clean, bright, well-lit modern workspace with natural light",
+      "screens": "monitor(s) showing code, dashboards, or software interfaces",
+      "background": "softly blurred (shallow depth of field) office environment"
+    },
+    "overlayElements": {
+      "floatingUICards": {
+        "placement": "overlaid on photography zone",
+        "style": "white cards with subtle shadow, showing app interfaces or dashboards"
+      },
+      "processFlowIcons": {
+        "placement": "lower-left zone, below headline (Type B layouts)",
+        "style": "outlined icons inside circles (2px stroke), connected by dashed arrows, 50-60px diameter, 15-20px gap"
+      },
+      "companyLogoBadges": {
+        "placement": "right side stacked vertically (Type A) or 2x3 grid below headline",
+        "style": "white rounded-rectangle cards (~140x40px) with subtle border/shadow, 10-15px vertical gap"
+      },
+      "connectorLines": {
+        "style": "green (#A3C423) dotted/dashed lines with small dots at nodes"
+      },
+      "decorativeCircles": {
+        "placement": "background of left text zone",
+        "style": "very light blue/gray (#E8EDF2), large and partially cropped"
+      },
+      "accentElements": {
+        "style": "3D coins, illustrations, small isometric objects (used sparingly near headline)"
+      },
+      "circularPhotoCrop": {
+        "usage": "Type A layouts only",
+        "style": "person photo inside circular frame with light border, centered in canvas"
+      }
+    },
+    "backgroundTexture": "clean white or soft light gray, very minimal, with optional subtle decorative circles",
+    "iconStyle": "thin outlined icons in light gray/green circles with connecting dashed arrows"
+  },
+  "categories": {
+    "software-development": {
+      "metaphors": ["code editor", "developer workspace", "agile board", "deployment pipeline"],
+      "accentColor": "#0F3460"
+    },
+    "healthcare": {
+      "metaphors": ["patient portal", "health monitoring", "medical dashboard", "telemedicine"],
+      "accentColor": "#2ECC71"
+    },
+    "outsourcing": {
+      "metaphors": ["global team", "remote collaboration", "nearshore partnership", "dedicated team"],
+      "accentColor": "#0F3460"
+    },
+    "consulting": {
+      "metaphors": ["strategy meeting", "business consulting", "technology advisory", "expert team"],
+      "accentColor": "#0F3460"
+    },
+    "default": {
+      "metaphors": ["technology", "software engineering", "digital solution", "innovation"],
+      "accentColor": "#0F3460"
+    }
+  }
+}

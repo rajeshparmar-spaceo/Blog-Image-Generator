@@ -1,0 +1,221 @@
+{
+  "brand": {
+    "name": "welco.ai",
+    "tagline": "",
+    "logo": {
+      "position": "bottom-right",
+      "style": "dark-text-logo",
+      "file": "Welco Logo Dark Transparent.png",
+      "dimensions": {
+        "width": 80,
+        "height": 25,
+        "badgeSize": 0
+      },
+      "margin": {
+        "right": 25,
+        "bottom": 25
+      },
+      "description": "welco.ai text logo in dark color. Lowercase 'welco' with a dot styled as an 'o' followed by '.ai'. Simple, minimal text mark. No background badge. Positioned bottom-right corner consistently across all reference images."
+    }
+  },
+  "colors": {
+    "primary": "#004CE6",
+    "secondary": "#EBF1FF",
+    "accent": "#004CE6",
+    "background": {
+      "solid": "#E4ECF7",
+      "solidAlt": "#E8F0FE",
+      "gradient": ["#B2E8FF", "#80AAFF", "#F0B2FF"],
+      "usage": "Solid light blue is the default (~75% of images). Gradient variant used in ~25% of images."
+    },
+    "text": {
+      "headline": "#000000",
+      "subtitle": "#EBF1FF",
+      "body": "#000000"
+    },
+    "chatBubbles": {
+      "customerBackground": "#FFFFFF",
+      "aiBackground": "#EBF1FF",
+      "aiBackgroundAlt": "#C5D5F6",
+      "text": "#000000"
+    },
+    "accentIcons": {
+      "background": "#004CE6",
+      "foreground": "#FFFFFF"
+    },
+    "greenStatusDot": "#4CAF50",
+    "gradients": {
+      "background": "linear-gradient(135deg, #B2E8FF 0%, #80AAFF 50%, #F0B2FF 100%)"
+    }
+  },
+  "typography": {
+    "headline": {
+      "fontFamily": "Inter, sans-serif",
+      "fontWeight": "600",
+      "fontSize": "30px",
+      "lineHeight": "1.1",
+      "textTransform": "none"
+    },
+    "subtitle": {
+      "fontFamily": "Inter, sans-serif",
+      "fontWeight": "400",
+      "fontSize": "16px",
+      "lineHeight": "1.4"
+    },
+    "chatBubble": {
+      "fontFamily": "Inter, sans-serif",
+      "fontWeight": "400",
+      "fontSize": "14px",
+      "lineHeight": "1.4"
+    }
+  },
+  "layout": {
+    "canvas": { "width": 800, "height": 600, "aspectRatio": "4:3" },
+    "primaryStructure": "centered-composition",
+    "zones": {
+      "topHeadline": {
+        "position": "top 15-20% of canvas, centered",
+        "content": ["headline"],
+        "padding": "40-60px from top"
+      },
+      "centralVisual": {
+        "position": "middle 60-70% of canvas",
+        "content": ["receptionist-photo", "chat-conversation-bubbles", "accent-icons", "caller-photo", "company-logo-grid"]
+      },
+      "bottomLogo": {
+        "position": "bottom-right corner",
+        "content": ["welco.ai logo"]
+      }
+    },
+    "headlinePlacement": "center",
+    "visualPlacement": "center",
+    "padding": { "top": 50, "right": 25, "bottom": 25, "left": 25 },
+    "headlineMaxWidth": "90%",
+    "headlineAlign": "center",
+    "headlineLines": 2,
+    "variants": {
+      "typeA-receptionistChat": {
+        "trigger": "pricing guides, how-to articles, feature explainers, AI receptionist topics",
+        "usage": "~75% of images",
+        "headline": "centered top, 2 lines",
+        "visual": "realistic receptionist photo with headset + chat conversation bubbles showing customer-AI dialog",
+        "extras": "optional caller photo (either side), accent icons (dollar, 24/7, calendar)",
+        "subVariants": {
+          "A1-receptionistAlone": {
+            "description": "Receptionist center/center-left, chat bubbles on right, NO caller photo. May include accent icons.",
+            "receptionistPosition": "center or center-left",
+            "callerPresent": false
+          },
+          "A2-receptionistAndCaller": {
+            "description": "Receptionist on one side, caller on the other, chat bubbles between them. Caller can be LEFT or RIGHT.",
+            "receptionistPosition": "center-left or center-right",
+            "callerPresent": true,
+            "callerPosition": "opposite side of receptionist"
+          },
+          "A3-receptionistWithProps": {
+            "description": "AI-illustrated receptionist holding tablet or near laptop/screen mockup. Usually paired with caller and 'AI Receptionists' label badge.",
+            "receptionistStyle": "AI-generated illustration",
+            "props": ["tablet", "laptop", "screen mockup"],
+            "labelBadge": true
+          }
+        }
+      },
+      "typeB-listicleComparison": {
+        "trigger": "best X services, top alternatives, comparison posts",
+        "usage": "~25% of images",
+        "headline": "centered top, 2 lines",
+        "visual": "horizontal row of overlapping circles with company logos (welco headset icon largest in center) OR scattered grid of rounded-square app icons",
+        "extras": "no receptionist photo, welco headset icon serves as brand identifier",
+        "subVariants": {
+          "B1-overlappingCircles": {
+            "description": "Horizontal row of overlapping circles with company logos. Welco headset icon largest in center with blue (#004CE6) outline.",
+            "centralSize": "~150px diameter",
+            "otherSize": "~100-120px diameter",
+            "arrangement": "horizontal row, partially overlapping"
+          },
+          "B2-scatteredAppIcons": {
+            "description": "Organic/scattered grid of rounded-square app icons. Welco icon largest and central. Small curved arrow from competitor icon pointing to welco icon.",
+            "centralSize": "~100-120px square",
+            "otherSize": "~50-70px square",
+            "arrangement": "scattered/organic around center",
+            "iconRadius": "16-20px",
+            "iconShadow": "subtle drop shadow"
+          }
+        }
+      }
+    }
+  },
+  "logoPlacement": {
+    "position": "bottom-right",
+    "sourceSize": { "width": 636, "height": 120 },
+    "displaySize": { "width": 88, "height": 25 },
+    "margin": { "right": 25, "bottom": 25 },
+    "style": "dark text, no badge, directly on background",
+    "visibility": "present in ~87% of images; omitted in some listicle layouts where welco headset icon is central"
+  },
+  "visualStyle": {
+    "tone": "minimal, modern, AI-focused, sleek, friendly",
+    "imageStyle": "realistic receptionist photography and AI-generated renders with chat conversation UI overlays",
+    "photographyComposition": {
+      "receptionistSubject": "smiling professional woman with over-ear headset, blazer/business casual, friendly and approachable. MULTIPLE different women are used -- variety in hair color, style, ethnicity is expected.",
+      "receptionistPositioning": "varies: center, center-left, or center-right of canvas, shoulders up or upper body",
+      "receptionistFrame": {
+        "options": [
+          "no frame -- photo directly on background (~50% of Type A)",
+          "circular frame with blue (#004CE6) border/background (~40%)",
+          "within screen/device mockup (~10%)"
+        ]
+      },
+      "receptionistProps": "sometimes holding tablet or near laptop/screen (AI-illustrated variants)",
+      "callerPhoto": {
+        "presence": "optional, present in ~67% of Type A images",
+        "positioning": "flexible -- LEFT or RIGHT side, opposite the receptionist",
+        "frame": "circular frame (gray/light border), rectangular photo, or small square with rounded corners",
+        "size": "varies from small thumbnail (~60-80px) to large photo (~200px+)"
+      },
+      "photoStyle": "mix of realistic high-quality photography AND AI-generated realistic renders, clean background, bright lighting"
+    },
+    "chatConversationUI": {
+      "description": "Primary visual storytelling element -- demonstrates the AI receptionist in action",
+      "placement": "center or center-right of canvas, between receptionist and caller (or beside receptionist if no caller)",
+      "messageCount": "2-4 alternating exchanges (customer - AI - customer - AI); most show 3-4, minimum observed is 2",
+      "customerBubbles": { "background": "#FFFFFF or off-white", "text": "#000000", "borderRadius": "12px" },
+      "aiBubbles": { "background": "#EBF1FF to #C5D5F6 light blue/lavender tint", "text": "#000000", "borderRadius": "12px" },
+      "font": "Inter, 14-15px, regular weight",
+      "content": "realistic appointment booking and service request conversations (book appointment, confirm time, send confirmation, request estimate, schedule service)",
+      "shadow": "very subtle drop shadow on bubbles",
+      "bubbleMaxWidth": "200-250px"
+    },
+    "accentElements": {
+      "dollarIcon": { "usage": "pricing/cost articles", "style": "blue (#004CE6) circle with white dollar sign, 50-60px" },
+      "twentyFourSevenIcon": { "usage": "automation/after-hours articles", "style": "blue circle with 24/7 text and circular dashed arrows, 50-60px" },
+      "calendarIcon": { "usage": "appointment booking articles", "style": "blue circle with calendar symbol and circular arrows" },
+      "greenStatusDot": { "usage": "near receptionist photo", "style": "solid green (#4CAF50) circle, 15-40px (size varies), online indicator" },
+      "headsetIconSmall": { "usage": "decorative in Type A layouts near chat area", "style": "small welco headset symbol, ~20-30px" },
+      "headsetIconLarge": { "usage": "listicle/comparison layouts (Type B)", "style": "welco brand headset symbol in large rounded square, central" },
+      "aiReceptionistsLabel": { "usage": "near receptionist photo (especially A3 variant with props)", "style": "dark text in white/light rounded rectangle badge" },
+      "subtleGridPattern": { "usage": "background texture at bottom in ~40% of images", "style": "very faint grid lines in light gray, barely visible" }
+    },
+    "listicleElements": {
+      "circleRow": "horizontal overlapping circles with company logos, welco headset central and largest (~150px) with blue outline, others ~100-120px",
+      "appIconGrid": "scattered/organic grid of rounded-square icons (16-20px radius, subtle shadow), welco ~100-120px central, others ~50-70px, curved arrow from competitor to welco"
+    },
+    "overlayElements": "chat conversation bubbles, accent icons, circular/rectangular photo frames",
+    "backgroundTexture": "solid light blue (#E4ECF7 / #E8F0FE) as default; optional soft gradient (blue to pink/purple); subtle grid pattern at bottom in some images",
+    "iconStyle": "blue (#004CE6) circular accent icons with white symbols"
+  },
+  "categories": {
+    "ai": {
+      "metaphors": ["AI assistant", "chatbot", "neural network", "smart automation"],
+      "accentColor": "#004CE6"
+    },
+    "automation": {
+      "metaphors": ["workflow automation", "process optimization", "bot interface", "smart pipeline"],
+      "accentColor": "#004CE6"
+    },
+    "default": {
+      "metaphors": ["artificial intelligence", "smart technology", "innovation", "digital assistant"],
+      "accentColor": "#004CE6"
+    }
+  }
+}

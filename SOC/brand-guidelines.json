@@ -1,0 +1,209 @@
+{
+  "brand": {
+    "name": "Space O Technologies Canada",
+    "tagline": "",
+    "logo": {
+      "position": "top-right",
+      "style": "red-maple-leaf-badge",
+      "file": "Logo-Dark-Red.png",
+      "dimensions": {
+        "width": 110,
+        "height": 50,
+        "badgeSize": 0
+      },
+      "margin": {
+        "top": 15,
+        "right": 15
+      },
+      "description": "SPACE O TECHNOLOGIES text logo with red maple leaf icon and red 'O' circle. Positioned in top-right corner. Canadian branding with maple leaf symbol."
+    }
+  },
+  "colors": {
+    "primary": "#E74C3C",
+    "secondary": "#1A1A1A",
+    "accent": "#3498DB",
+    "background": ["#FFFFFF", "#F5F7FA", "#F0F4F8"],
+    "text": {
+      "headline": "#1A1A1A",
+      "subtitle": "#555555",
+      "body": "#666666"
+    },
+    "gradients": {
+      "background": "linear-gradient(135deg, #FFFFFF 0%, #F5F7FA 100%)"
+    }
+  },
+  "typography": {
+    "headline": {
+      "fontFamily": "Poppins, sans-serif",
+      "fontWeight": "600",
+      "fontSize": "32px",
+      "lineHeight": "1.1",
+      "textTransform": "none"
+    },
+    "subtitle": {
+      "fontFamily": "Poppins, sans-serif",
+      "fontWeight": "500",
+      "fontSize": "24px",
+      "lineHeight": "1.3"
+    }
+  },
+  "layout": {
+    "canvas": { "width": 1416, "height": 748, "aspectRatio": "1.89:1" },
+    "primaryStructure": "two-zone-split",
+    "zones": {
+      "leftText": {
+        "widthPercent": "25-35%",
+        "content": ["headline", "subtitle", "bulleted-feature-list", "company-logo-badges"],
+        "backgroundOverlay": "soft gradient fade white to light gray (#FFFFFF to #F5F7FA)"
+      },
+      "rightVisual": {
+        "widthPercent": "65-75%",
+        "content": ["photography", "healthcare-dashboards-on-screens", "floating-icon-badges"],
+        "transitionStyle": "soft gradient fade, no hard edge"
+      }
+    },
+    "headlinePlacement": "left",
+    "visualPlacement": "right",
+    "padding": { "top": 50, "right": 40, "bottom": 50, "left": 50 },
+    "headlineMaxWidth": "35%",
+    "visualMaxWidth": "75%",
+    "headlineVerticalAlign": "upper-center",
+    "headlineStacking": "1-2 words per line for impact",
+    "variants": {
+      "typeA-healthcareGuide": {
+        "trigger": "telehealth, EHR, patient monitoring, healthcare software",
+        "headline": "left 25-35%",
+        "visual": "professional at multi-screen workstation right 65-75%, healthcare dashboards on screens",
+        "extras": "circular icon badge floating above laptop with hand-drawn arrow; subtitle below headline"
+      },
+      "typeB-topCompanies": {
+        "trigger": "top development companies, provider lists",
+        "headline": "left 30%",
+        "visual": "healthcare team at workstation right 70% with EHR/dashboard on monitors",
+        "extras": "company logo badges in 2x3 grid below headline in left zone"
+      },
+      "typeC-appDevelopment": {
+        "trigger": "mobile apps, outsource development",
+        "headline": "left 30%",
+        "visual": "mobile phone mockup showing app UI + code editor browser window in center-right",
+        "extras": "world map illustration with location pins in lower-left (outsourcing); 3D elements (money, coins, shields) for cost articles"
+      },
+      "typeD-featureBreakdown": {
+        "trigger": "software features, implementation guides",
+        "headline": "left 30-35%",
+        "visual": "professional at desk with laptop right 65-70%",
+        "extras": "bulleted feature list below headline with small circular icons (Features, Benefits, Cost, Process); clean photo, no complex overlays"
+      },
+      "typeE-canadianContent": {
+        "trigger": "articles targeting Canadian healthcare market",
+        "headline": "left 30-35%",
+        "visual": "professional at laptop with Canadian flag visible in background",
+        "extras": "same as Type A but with Canadian flag; stronger red (#E74C3C) accents"
+      }
+    },
+    "bulletedFeatureList": {
+      "description": "Distinctive SOC element — vertical list of 3 items below headline with circular icons",
+      "placement": "below headline and subtitle in left text zone",
+      "iconStyle": "dark circular badges (~35-40px) with thin white outlined icons inside",
+      "labels": ["Features", "Benefits", "Cost", "Process", "Implementation Guide"],
+      "spacing": "12-15px vertical gap between items",
+      "textStyle": "Poppins, 16px, regular weight, dark gray"
+    }
+  },
+  "logoPlacement": {
+    "primaryPosition": "bottom-right with white semi-circle/arc badge background",
+    "alternativePosition": "top-right with white semi-circle/arc badge background",
+    "badgeStyle": "white semi-circle/arc cutout — dominant SOC style (~90% usage)",
+    "margin": { "right": 15, "bottom": 15, "top": 15 },
+    "size": { "height": 50, "widthScaled": "proportional" },
+    "branding": "red maple leaf icon + red O circle (Canadian identity)"
+  },
+  "visualStyle": {
+    "tone": "professional, healthcare-focused, trustworthy",
+    "imageStyle": "professional photos with healthcare UI dashboards and app mockups on screens",
+    "photographyComposition": {
+      "subject": "healthcare professional(s) or developer(s) at desk with laptop AND monitor(s)",
+      "multiScreen": "multi-monitor setups very common — laptop + external monitor(s) showing different content",
+      "cameraAngle": "side profile or 3/4 view",
+      "faceDirection": "facing LEFT toward text zone",
+      "positioning": "person in right 50-65% of canvas",
+      "expression": "neutral, focused, professional",
+      "environment": "clean, bright, modern office/workspace with natural light",
+      "depthOfField": "shallow — softly blurred background",
+      "screenContent": "healthcare dashboards, patient portals, EHR systems, vitals monitoring, video calls, or code editors",
+      "categorySpecific": {
+        "telehealth": "professional at desk with monitor showing patient video call + vitals dashboard; HIPAA security shields floating",
+        "ehr": "healthcare team (doctor + developers) at workstation with patient record system on screens",
+        "app-development": "mobile phone mockup showing app UI + code editor browser window behind",
+        "remote-monitoring": "person at laptop with patient monitoring dashboard showing heart rate, vitals, video feed",
+        "mvp-team": "multi-person scene — person at monitors + team member at whiteboard with Kanban board",
+        "mental-health": "professional at laptop with EHR patient profile; Canadian flag in background"
+      }
+    },
+    "overlayElements": {
+      "healthcareDashboards": {
+        "placement": "visible on monitor/laptop screens in the photo",
+        "style": "realistic UI with patient data, vitals charts, appointment lists"
+      },
+      "circularIconBadges": {
+        "placement": "floating above laptop, connected by hand-drawn curved arrow",
+        "style": "circle (50-60px) with thin outlined healthcare icon inside (heart, patient, lock)"
+      },
+      "handDrawnArrows": {
+        "style": "thin curved dark stroke connecting floating icon badge to laptop/screen, casual hand-drawn feel"
+      },
+      "companyLogoBadges": {
+        "placement": "2x3 grid below headline (Type B)",
+        "style": "white rounded-rectangle cards (~130x35px) with subtle border/shadow, 10px gap"
+      },
+      "mobilePhoneMockups": {
+        "placement": "center-left area, overlapping text-photo boundary",
+        "style": "realistic phone frame showing app UI (doctor listings, booking screens)"
+      },
+      "codeEditorWindows": {
+        "placement": "behind phone/person as background element",
+        "style": "browser window with code (JavaScript), slightly enlarged and faded"
+      },
+      "accentElements3D": {
+        "placement": "near phone mockup or bottom area (Type C cost articles)",
+        "style": "money stacks, coins, security shields with dollar signs — used sparingly"
+      },
+      "worldMap": {
+        "placement": "lower-left zone (outsourcing articles only)",
+        "style": "light blue/gray world map with location pins and dotted connection lines"
+      },
+      "securityShields": {
+        "placement": "floating near monitors (HIPAA/compliance articles)",
+        "style": "blue shield icons with lock/check symbols"
+      },
+      "canadianFlag": {
+        "placement": "background element in photo (Canada-specific articles)",
+        "style": "real Canadian flag visible in office environment"
+      }
+    },
+    "backgroundTexture": "clean white to light gray (#F5F7FA), neutral and clinical, no color tint",
+    "iconStyle": "healthcare icons in dark circular badges, security badges, medical UI elements"
+  },
+  "categories": {
+    "telehealth": {
+      "metaphors": ["video consultation", "HIPAA shield", "patient portal dashboard", "remote health monitor"],
+      "accentColor": "#3498DB"
+    },
+    "ehr": {
+      "metaphors": ["electronic health record", "patient data chart", "clinical workflow", "medical database"],
+      "accentColor": "#3498DB"
+    },
+    "healthcare-app": {
+      "metaphors": ["doctor-on-demand app", "booking system", "medical scribe", "health tracking"],
+      "accentColor": "#2ECC71"
+    },
+    "mental-health": {
+      "metaphors": ["therapy session", "wellness dashboard", "calm interface", "mindfulness app"],
+      "accentColor": "#9B59B6"
+    },
+    "default": {
+      "metaphors": ["healthcare technology", "medical innovation", "patient care", "digital health"],
+      "accentColor": "#3498DB"
+    }
+  }
+}
