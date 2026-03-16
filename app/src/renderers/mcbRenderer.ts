@@ -33,7 +33,8 @@ export function mcbRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   }
 
   // 2. Left-zone overlay (text zone only)
-  drawGradientOverlay(ctx, W, H, FADE_WIDTH, 0.95);
+  const fadeWidth = (state.overlayPosition / 100) * W;
+  drawGradientOverlay(ctx, W, H, fadeWidth, state.overlayOpacity / 100, state.overlayColor);
 
   // 3. Text zone
   ctx.textAlign = 'left';

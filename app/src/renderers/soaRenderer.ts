@@ -32,7 +32,8 @@ export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   }
 
   // Left-zone overlay (text zone only)
-  drawGradientOverlay(ctx, W, H, FADE_WIDTH, 0.95);
+  const fadeWidth = (state.overlayPosition / 100) * W;
+  drawGradientOverlay(ctx, W, H, fadeWidth, state.overlayOpacity / 100, state.overlayColor);
 
   // 3. Text zone — narrow maxWidth forces word stacking
   ctx.textAlign = 'left';

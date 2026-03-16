@@ -34,6 +34,9 @@ export const useEditorStore = create<Store>((set) => ({
   imageOpportunities: [] as ImageOpportunity[],
   selectedOpportunityId: '',
   layoutSeed: 0,
+  overlayColor: '#FFFFFF',
+  overlayOpacity: 92,
+  overlayPosition: 40,
 
   // Actions
   setBrandId: (id: BrandId) => set(() => {
@@ -62,4 +65,7 @@ export const useEditorStore = create<Store>((set) => ({
   setImageOpportunities: (imageOpportunities: ImageOpportunity[]) => set({ imageOpportunities }),
   setSelectedOpportunityId: (selectedOpportunityId: string) => set({ selectedOpportunityId }),
   bumpLayoutSeed: () => set((s) => ({ layoutSeed: s.layoutSeed + 1 })),
+  setOverlayColor: (overlayColor: string) => set({ overlayColor }),
+  setOverlayOpacity: (overlayOpacity: number) => set({ overlayOpacity }),
+  setOverlayPosition: (overlayPosition: number) => set({ overlayPosition }),
 }));

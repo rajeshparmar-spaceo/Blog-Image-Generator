@@ -7,6 +7,7 @@ import { TextInputs } from '../controls/TextInputs';
 import { StockImageDropzone } from '../controls/StockImageDropzone';
 import { IconPicker } from '../controls/IconPicker';
 import { InternalImagePanel } from '../controls/InternalImagePanel';
+import { OverlayPanel } from '../controls/OverlayPanel';
 
 export function Sidebar() {
   const { brandId, variant, imageMode } = useEditorStore();
@@ -14,6 +15,7 @@ export function Sidebar() {
   const showSoiSize   = brandId === 'soi';
   const showStockPhoto = brandId !== 'taskrhino' && !(brandId === 'welco' && (variant === 'typeB1' || variant === 'typeB2'));
   const showIconPicker = brandId !== 'welco' || variant === 'typeA1' || variant === 'typeA2';
+  const showOverlay = brandId === 'mcb' || brandId === 'soa' || brandId === 'soc' || brandId === 'soi';
 
   return (
     <aside className="flex-none w-72 bg-slate-900 border-r border-slate-800 overflow-y-auto">
@@ -47,6 +49,13 @@ export function Sidebar() {
               <>
                 <div className="border-t border-slate-800" />
                 <StockImageDropzone />
+              </>
+            )}
+
+            {showOverlay && (
+              <>
+                <div className="border-t border-slate-800" />
+                <OverlayPanel />
               </>
             )}
 

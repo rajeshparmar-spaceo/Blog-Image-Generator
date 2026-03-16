@@ -75,6 +75,9 @@ export interface EditorState {
   imageOpportunities: ImageOpportunity[];
   selectedOpportunityId: string;
   layoutSeed: number;
+  overlayColor: string;
+  overlayOpacity: number;
+  overlayPosition: number;
 }
 
 export interface EditorActions {
@@ -100,4 +103,7 @@ export interface EditorActions {
   setImageOpportunities: (opps: ImageOpportunity[]) => void;
   setSelectedOpportunityId: (id: string) => void;
   bumpLayoutSeed: () => void;
+  setOverlayColor: (color: string) => void;
+  setOverlayOpacity: (opacity: number) => void;
+  setOverlayPosition: (position: number) => void;
 }
