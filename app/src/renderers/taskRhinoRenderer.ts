@@ -51,8 +51,6 @@ export function taskRhinoRenderer(ctx: CanvasRenderingContext2D, state: EditorSt
   const textX = 55;
   const textMaxWidth = 540;
 
-  ctx.fillStyle = '#7C3AED';
-  ctx.fillRect(textX, 95, 50, 5);
 
   const headlineFont = '"Fraunces", Georgia, serif';
   ctx.font = `800 52px ${headlineFont}`;
@@ -61,7 +59,7 @@ export function taskRhinoRenderer(ctx: CanvasRenderingContext2D, state: EditorSt
   ctx.textBaseline = 'top';
   const headLines = wrapText(ctx, headline, textMaxWidth);
   let headY = 120;
-  for (const line of headLines.slice(0, 3)) {
+  for (const line of headLines) {
     ctx.fillText(line, textX, headY);
     headY += 64;
   }
@@ -70,7 +68,7 @@ export function taskRhinoRenderer(ctx: CanvasRenderingContext2D, state: EditorSt
   ctx.fillStyle = '#4A4A4A';
   const subLines = wrapText(ctx, subtitle, textMaxWidth);
   let subY = headY + 18;
-  for (const line of subLines.slice(0, 3)) {
+  for (const line of subLines) {
     ctx.fillText(line, textX, subY);
     subY += 30;
   }

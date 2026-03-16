@@ -40,9 +40,9 @@ export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Pre-wrap to measure block height
   ctx.font = `600 28px Poppins`;
-  const headLines = wrapText(ctx, headline, 210).slice(0, 4);
+  const headLines = wrapText(ctx, headline, 210);
   ctx.font = `400 16px Poppins`;
-  const subLines = wrapText(ctx, subtitle, TEXT_MAX_WIDTH).slice(0, 3);
+  const subLines = wrapText(ctx, subtitle, TEXT_MAX_WIDTH);
 
   const barH = 3;
   const barToHead = 12;
@@ -52,9 +52,6 @@ export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   const totalH = barH + barToHead + headLines.length * lineH + headToSub + subLines.length * subLineH;
   const startY = Math.round((H - totalH) / 2);
 
-  // Brand accent
-  ctx.fillStyle = PRIMARY;
-  ctx.fillRect(TEXT_X, startY, 28, barH);
 
   // Headline — narrow maxWidth = 210px stacks words
   ctx.font = `600 28px Poppins`;

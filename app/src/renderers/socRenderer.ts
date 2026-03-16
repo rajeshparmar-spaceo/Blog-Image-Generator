@@ -41,9 +41,9 @@ export function socRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Pre-wrap to measure block height
   ctx.font = `600 40px Poppins`;
-  const headLines = wrapText(ctx, headline, TEXT_MAX_WIDTH).slice(0, 3);
+  const headLines = wrapText(ctx, headline, TEXT_MAX_WIDTH);
   ctx.font = `500 26px Poppins`;
-  const subLines = wrapText(ctx, subtitle, TEXT_MAX_WIDTH).slice(0, 2);
+  const subLines = wrapText(ctx, subtitle, TEXT_MAX_WIDTH);
 
   const barH = 5;
   const barToHead = 20;
@@ -53,9 +53,6 @@ export function socRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   const totalH = barH + barToHead + headLines.length * lineH + headToSub + subLines.length * subLineH;
   const startY = Math.round((H - totalH) / 2);
 
-  // Brand bar
-  ctx.fillStyle = PRIMARY;
-  ctx.fillRect(TEXT_X, startY, 50, barH);
 
   // Headline
   ctx.font = `600 40px Poppins`;

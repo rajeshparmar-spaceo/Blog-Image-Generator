@@ -51,7 +51,7 @@ export function welcoRenderer(ctx: CanvasRenderingContext2D, state: EditorState)
   ctx.fillStyle = '#000000';
   const headLines = wrapText(ctx, headline, 650);
   let headY = 50;
-  for (const line of headLines.slice(0, 2)) {
+  for (const line of headLines) {
     ctx.fillText(line, W / 2, headY);
     headY += 40;
   }
@@ -60,7 +60,7 @@ export function welcoRenderer(ctx: CanvasRenderingContext2D, state: EditorState)
   ctx.font = '400 16px Inter';
   ctx.fillStyle = '#444444';
   const subLines = wrapText(ctx, subtitle, 600);
-  for (const line of subLines.slice(0, 2)) {
+  for (const line of subLines) {
     ctx.fillText(line, W / 2, headY + 6);
     headY += 24;
   }

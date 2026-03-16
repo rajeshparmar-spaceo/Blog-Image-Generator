@@ -41,9 +41,9 @@ export function mcbRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Pre-wrap to measure block height
   ctx.font = `700 32px Poppins`;
-  const headLines = wrapText(ctx, headline, TEXT_MAX_WIDTH).slice(0, 3);
+  const headLines = wrapText(ctx, headline, TEXT_MAX_WIDTH);
   ctx.font = `400 18px Poppins`;
-  const subLines = wrapText(ctx, subtitle, TEXT_MAX_WIDTH).slice(0, 3);
+  const subLines = wrapText(ctx, subtitle, TEXT_MAX_WIDTH);
 
   const barH = 4;
   const barToHead = 16;
@@ -53,9 +53,6 @@ export function mcbRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   const totalH = barH + barToHead + headLines.length * lineH + headToSub + subLines.length * subLineH;
   const startY = Math.round((H - totalH) / 2);
 
-  // Blue accent bar
-  ctx.fillStyle = PRIMARY;
-  ctx.fillRect(TEXT_X, startY, 40, barH);
 
   // Headline
   ctx.font = `700 32px Poppins`;
