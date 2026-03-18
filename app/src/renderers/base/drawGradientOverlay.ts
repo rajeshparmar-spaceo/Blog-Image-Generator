@@ -11,24 +11,37 @@ function hexToRgb(hex: string): string {
 }
 
 /**
- * Draws a left-to-right gradient overlay over the left portion of the canvas.
- * @param fadeWidth - how many pixels wide the gradient covers
- * @param opacity   - 0 to 1, opacity at the solid edge
- * @param color     - hex color string e.g. '#FFFFFF'
+ * Draws a gradient overlay over the canvas.
+ * @param fadeWidth  - coverage in pixels (width for left-right, height for top-bottom)
+ * @param opacity    - 0 to 1, opacity at the solid edge
+ * @param color      - hex color string e.g. '#FFFFFF'
+ * @param direction  - 'left-right' (default) or 'top-bottom'
  */
 export function drawGradientOverlay(
   ctx: CanvasRenderingContext2D,
-  _canvasWidth: number,
+  canvasWidth: number,
   canvasHeight: number,
   fadeWidth: number,
   opacity = 0.92,
   color = '#FFFFFF',
+  direction: 'left-right' | 'top-bottom' = 'left-right',
 ): void {
   const rgb = hexToRgb(color);
-  const grad = ctx.createLinearGradient(0, 0, fadeWidth, 0);
-  grad.addColorStop(0, `rgba(${rgb},${opacity})`);
-  grad.addColorStop(0.7, `rgba(${rgb},${opacity * 0.8})`);
-  grad.addColorStop(1, `rgba(${rgb},0)`);
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, fadeWidth, canvasHeight);
+
+  let grad: CanvasGradient;
+  if (direction === 'top-bottom') {
+    grad = ctx.createLinearGradient(0, 0, 0, fadeWidth);
+    grad.addColorStop(0, `rgba(${rgb},${opacity})`);
+    grad.addColorStop(0.7, `rgba(${rgb},${opacity * 0.8})`);
+    grad.addColorStop(1, `rgba(${rgb},0)`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, canvasWidth, fadeWidth);
+  } else {
+    grad = ctx.createLinearGradient(0, 0, fadeWidth, 0);
+    grad.addColorStop(0, `rgba(${rgb},${opacity})`);
+    grad.addColorStop(0.7, `rgba(${rgb},${opacity * 0.8})`);
+    grad.addColorStop(1, `rgba(${rgb},0)`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, fadeWidth, canvasHeight);
+  }
 }

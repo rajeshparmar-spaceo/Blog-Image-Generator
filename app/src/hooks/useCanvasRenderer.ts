@@ -7,6 +7,7 @@ import { socRenderer } from '../renderers/socRenderer';
 import { soiRenderer } from '../renderers/soiRenderer';
 import { taskRhinoRenderer } from '../renderers/taskRhinoRenderer';
 import { welcoRenderer } from '../renderers/welcoRenderer';
+import { contentBridgeRenderer } from '../renderers/contentBridgeRenderer';
 import { renderInternalImage } from '../renderers/internalImageRenderer';
 
 export function useCanvasRenderer(canvasRef: RefObject<HTMLCanvasElement | null>) {
@@ -32,16 +33,21 @@ export function useCanvasRenderer(canvasRef: RefObject<HTMLCanvasElement | null>
       case 'soa':       soaRenderer(ctx, state);       break;
       case 'soc':       socRenderer(ctx, state);       break;
       case 'soi':       soiRenderer(ctx, state);       break;
-      case 'taskrhino': taskRhinoRenderer(ctx, state); break;
-      case 'welco':     welcoRenderer(ctx, state);     break;
+      case 'taskrhino':     taskRhinoRenderer(ctx, state);     break;
+      case 'welco':         welcoRenderer(ctx, state);         break;
+      case 'contentbridge': contentBridgeRenderer(ctx, state); break;
     }
   }, [
     state.imageMode,
     state.brandId, state.variant, state.soiSize,
     state.headline, state.subtitle, state.stepItems, state.chatLines,
     state.stockImage, state.selectedIcons, state.fontsReady, state.logoImages,
-    state.overlayColor, state.overlayOpacity, state.overlayPosition,
+    state.overlayColor, state.overlayOpacity, state.overlayPosition, state.overlayDirection,
     state.contentAlignment, state.socLogoGridImages, state.customIconImages,
+    state.cbTitlePosition, state.cbVsLogos, state.cbToolImages, state.cbCostLogo, state.cbRating,
+    state.mcbHeadlineWidth, state.mcbSubtitleWidth,
+    state.cbBgColor, state.cbBgColor2, state.cbBgType, state.cbBgGradientDir,
+    state.cbImageOffsetX, state.cbImageOffsetY,
     canvasRef,
   ]);
 

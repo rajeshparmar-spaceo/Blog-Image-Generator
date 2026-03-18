@@ -1,4 +1,4 @@
-export type BrandId = 'mcb' | 'soa' | 'soc' | 'soi' | 'taskrhino' | 'welco';
+export type BrandId = 'mcb' | 'soa' | 'soc' | 'soi' | 'taskrhino' | 'welco' | 'contentbridge';
 
 export type ImageMode = 'featured' | 'internal';
 export type ContentAlignment = 'top' | 'center';
@@ -80,9 +80,23 @@ export interface EditorState {
   overlayColor: string;
   overlayOpacity: number;
   overlayPosition: number;
+  overlayDirection: 'left-right' | 'top-bottom';
   socLogoGridImages: (HTMLImageElement | null)[];
   customIconImages: (HTMLImageElement | null)[];
   contentAlignment: ContentAlignment;
+  cbTitlePosition: 'top-center' | 'left-center';
+  cbVsLogos: (HTMLImageElement | null)[];
+  cbToolImages: (HTMLImageElement | null)[];
+  cbCostLogo: HTMLImageElement | null;
+  cbRating: number;
+  mcbHeadlineWidth: number;
+  mcbSubtitleWidth: number;
+  cbBgColor: string;
+  cbBgColor2: string;
+  cbBgType: 'solid' | 'gradient';
+  cbBgGradientDir: 'left-right' | 'top-bottom' | 'diagonal';
+  cbImageOffsetX: number;
+  cbImageOffsetY: number;
 }
 
 export interface EditorActions {
@@ -112,7 +126,21 @@ export interface EditorActions {
   setOverlayColor: (color: string) => void;
   setOverlayOpacity: (opacity: number) => void;
   setOverlayPosition: (position: number) => void;
+  setOverlayDirection: (direction: 'left-right' | 'top-bottom') => void;
   setSocLogoGridImage: (index: number, img: HTMLImageElement | null) => void;
   setCustomIconImage: (index: number, img: HTMLImageElement | null) => void;
   setContentAlignment: (alignment: ContentAlignment) => void;
+  setCbTitlePosition: (pos: 'top-center' | 'left-center') => void;
+  setCbVsLogo: (index: number, img: HTMLImageElement | null) => void;
+  setCbToolImage: (index: number, img: HTMLImageElement | null) => void;
+  setCbCostLogo: (img: HTMLImageElement | null) => void;
+  setCbRating: (rating: number) => void;
+  setMcbHeadlineWidth: (w: number) => void;
+  setMcbSubtitleWidth: (w: number) => void;
+  setCbBgColor: (color: string) => void;
+  setCbBgColor2: (color: string) => void;
+  setCbBgType: (type: 'solid' | 'gradient') => void;
+  setCbBgGradientDir: (dir: 'left-right' | 'top-bottom' | 'diagonal') => void;
+  setCbImageOffsetX: (v: number) => void;
+  setCbImageOffsetY: (v: number) => void;
 }

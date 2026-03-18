@@ -14,7 +14,7 @@ const TEXT_MAX_WIDTH = 360;
 export function mcbRenderer(ctx: CanvasRenderingContext2D, state: EditorState): void {
   const W = 1000;
   const H = 500;
-  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages } = state;
+  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages, mcbHeadlineWidth, mcbSubtitleWidth } = state;
 
   // 1. Background: stockImage cover-fit OR white→lightblue gradient
   if (stockImage) {
@@ -41,9 +41,9 @@ export function mcbRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Pre-wrap to measure block height
   ctx.font = `700 32px Poppins`;
-  const headLines = wrapText(ctx, headline, TEXT_MAX_WIDTH);
+  const headLines = wrapText(ctx, headline, mcbHeadlineWidth);
   ctx.font = `400 18px Poppins`;
-  const subLines = wrapText(ctx, subtitle, TEXT_MAX_WIDTH);
+  const subLines = wrapText(ctx, subtitle, mcbSubtitleWidth);
 
   const barH = 4;
   const barToHead = 16;
@@ -91,7 +91,7 @@ export function mcbRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   } else if (variant === 'typeB') {
     drawLogoGrid(ctx, TEXT_X, subY + 14, socLogoGridImages);
   } else if (variant === 'typeD' && stepItems.length > 0) {
-    drawBulletedFeatureList(ctx, stepItems.slice(0, 5), TEXT_X, subY + 14, TEXT_MAX_WIDTH, PRIMARY);
+    drawBulletedFeatureList(ctx, stepItems.slice(0, 5), TEXT_X, subY + 14, mcbSubtitleWidth, PRIMARY);
   }
 
   // 6. Logo — full canvas overlay

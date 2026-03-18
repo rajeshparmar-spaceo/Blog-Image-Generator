@@ -12,7 +12,8 @@ export function TextInputs() {
     chatLines, setChatLines,
   } = useEditorStore();
 
-  const showStepList = variant === 'typeD' && (brandId === 'soc' || brandId === 'soa' || brandId === 'soi' || brandId === 'mcb');
+  const showStepList = (variant === 'typeD' && (brandId === 'soc' || brandId === 'soa' || brandId === 'soi' || brandId === 'mcb')) ||
+    (brandId === 'contentbridge' && variant === 'typeE');
   const showChatLines = brandId === 'welco' && (variant === 'typeA1' || variant === 'typeA2');
 
   return (

@@ -1,6 +1,23 @@
 import type { BrandConfig, BrandId, SoiSize } from '../types';
 
 export const BRAND_CONFIGS: Record<BrandId, BrandConfig> = {
+  contentbridge: {
+    id: 'contentbridge',
+    label: 'ContentBridge',
+    primaryColor: '#F67B37',
+    secondaryColor: '#E55A1A',
+    fontFamily: 'Poppins',
+    logoPath: './logos/contentbridge/ContentBridge-Logo-circle.png',
+    canvasWidth: 1416,
+    canvasHeight: 748,
+    variants: [
+      { key: 'typeA', label: 'Type A — Simple Image' },
+      { key: 'typeB', label: 'Type B — UI Image' },
+      { key: 'typeC', label: 'Type C — Alternatives Tools' },
+      { key: 'typeD', label: 'Type D — VS Comparison' },
+      { key: 'typeE', label: 'Type E — Cost + Reviews' },
+    ],
+  },
   mcb: {
     id: 'mcb',
     label: 'MCB (Monocubed)',
@@ -102,4 +119,4 @@ export function getBrandCanvasSize(brandId: BrandId, soiSize: SoiSize = 'standar
   return { width: cfg.canvasWidth, height: cfg.canvasHeight };
 }
 
-export const BRAND_ORDER: BrandId[] = ['mcb', 'soa', 'soc', 'soi', 'taskrhino', 'welco'];
+export const BRAND_ORDER: BrandId[] = ['mcb', 'soa', 'soc', 'soi', 'taskrhino', 'welco', 'contentbridge'];

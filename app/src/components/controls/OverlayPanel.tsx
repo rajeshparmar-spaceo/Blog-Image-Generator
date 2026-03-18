@@ -1,11 +1,34 @@
 import { useEditorStore } from '../../store/useEditorStore';
 
 export function OverlayPanel() {
-  const { overlayColor, overlayOpacity, overlayPosition, setOverlayColor, setOverlayOpacity, setOverlayPosition } = useEditorStore();
+  const {
+    overlayColor, overlayOpacity, overlayPosition, overlayDirection,
+    setOverlayColor, setOverlayOpacity, setOverlayPosition, setOverlayDirection,
+  } = useEditorStore();
 
   return (
     <div className="flex flex-col gap-3">
       <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Overlay</h3>
+
+      {/* Direction */}
+      <div className="flex flex-col gap-1">
+        <label className="text-sm text-slate-300">Direction</label>
+        <div className="flex rounded overflow-hidden border border-slate-700">
+          {(['left-right', 'top-bottom'] as const).map((dir) => (
+            <button
+              key={dir}
+              onClick={() => setOverlayDirection(dir)}
+              className={`flex-1 py-1.5 text-xs font-medium transition-colors ${
+                overlayDirection === dir
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
+              }`}
+            >
+              {dir === 'left-right' ? 'Left → Right' : 'Top → Bottom'}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Color */}
       <div className="flex items-center justify-between gap-3">
@@ -37,10 +60,10 @@ export function OverlayPanel() {
         />
       </div>
 
-      {/* Position / Coverage Width */}
+      {/* Coverage */}
       <div className="flex flex-col gap-1">
         <div className="flex justify-between">
-          <label className="text-sm text-slate-300">Coverage Width</label>
+          <label className="text-sm text-slate-300">Coverage</label>
           <span className="text-xs text-slate-400">{overlayPosition}%</span>
         </div>
         <input

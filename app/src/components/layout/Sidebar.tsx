@@ -9,11 +9,19 @@ import { InternalImagePanel } from '../controls/InternalImagePanel';
 import { OverlayPanel } from '../controls/OverlayPanel';
 import { SocLogoGridUpload } from '../controls/SocLogoGridUpload';
 import { AlignmentSelector } from '../controls/AlignmentSelector';
+import { MCBTextWidthPanel } from '../controls/MCBTextWidthPanel';
+import { CBTitlePositionSelector } from '../controls/CBTitlePositionSelector';
+import { CBTypeBBgPanel } from '../controls/CBTypeBBgPanel';
+import { CBTypeBImagePosition } from '../controls/CBTypeBImagePosition';
+import { CBVsLogoUpload } from '../controls/CBVsLogoUpload';
+import { CBToolUpload } from '../controls/CBToolUpload';
+import { CBCostReviewPanel } from '../controls/CBCostReviewPanel';
 
 export function Sidebar() {
-  const { brandId, variant, imageMode } = useEditorStore();
+  const { brandId, variant, imageMode, cbTitlePosition } = useEditorStore();
 
-  const showStockPhoto = brandId !== 'taskrhino' && !(brandId === 'welco' && (variant === 'typeB1' || variant === 'typeB2'));
+  const isCB = brandId === 'contentbridge';
+  const showStockPhoto = brandId !== 'taskrhino' && !(brandId === 'welco' && (variant === 'typeB1' || variant === 'typeB2')) && !(isCB && (variant === 'typeC' || variant === 'typeD' || variant === 'typeE'));
   const showIconPicker =
     (brandId === 'soc' && variant === 'typeA') ||
     (brandId === 'soa' && variant === 'typeA') ||
@@ -21,7 +29,7 @@ export function Sidebar() {
     (brandId === 'mcb' && variant === 'typeA') ||
     brandId === 'taskrhino' ||
     (brandId === 'welco' && (variant === 'typeA1' || variant === 'typeA2'));
-  const showOverlay = brandId === 'mcb' || brandId === 'soa' || brandId === 'soc' || brandId === 'soi';
+  const showOverlay = brandId === 'mcb' || brandId === 'soa' || brandId === 'soc' || brandId === 'soi' || (isCB && variant === 'typeA');
   const showLogoGrid = variant === 'typeB' && (brandId === 'soc' || brandId === 'soa' || brandId === 'soi' || brandId === 'mcb');
 
   return (
@@ -45,6 +53,13 @@ export function Sidebar() {
             <div className="border-t border-slate-800" />
             <TextInputs />
 
+            {brandId === 'mcb' && (
+              <>
+                <div className="border-t border-slate-800" />
+                <MCBTextWidthPanel />
+              </>
+            )}
+
             {showStockPhoto && (
               <>
                 <div className="border-t border-slate-800" />
@@ -52,10 +67,35 @@ export function Sidebar() {
               </>
             )}
 
-            {showOverlay && (
+            {isCB && (variant === 'typeA' || variant === 'typeB') && (
               <>
                 <div className="border-t border-slate-800" />
-                <AlignmentSelector />
+                <CBTitlePositionSelector />
+              </>
+            )}
+
+            {isCB && variant === 'typeB' && (
+              <>
+                <div className="border-t border-slate-800" />
+                <CBTypeBBgPanel />
+              </>
+            )}
+
+            {isCB && variant === 'typeB' && cbTitlePosition === 'top-center' && (
+              <>
+                <div className="border-t border-slate-800" />
+                <CBTypeBImagePosition />
+              </>
+            )}
+
+            {showOverlay && (
+              <>
+                {!(isCB && variant === 'typeA') && (
+                  <>
+                    <div className="border-t border-slate-800" />
+                    <AlignmentSelector />
+                  </>
+                )}
                 <div className="border-t border-slate-800" />
                 <OverlayPanel />
               </>
@@ -72,6 +112,26 @@ export function Sidebar() {
               <>
                 <div className="border-t border-slate-800" />
                 <IconPicker />
+              </>
+            )}
+
+            {/* ContentBridge-specific controls */}
+            {isCB && variant === 'typeD' && (
+              <>
+                <div className="border-t border-slate-800" />
+                <CBVsLogoUpload />
+              </>
+            )}
+            {isCB && variant === 'typeC' && (
+              <>
+                <div className="border-t border-slate-800" />
+                <CBToolUpload />
+              </>
+            )}
+            {isCB && variant === 'typeE' && (
+              <>
+                <div className="border-t border-slate-800" />
+                <CBCostReviewPanel />
               </>
             )}
           </>

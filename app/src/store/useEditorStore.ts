@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { BRAND_CONFIGS } from '../constants/brands';
-import type { BrandId, ChatLine, ContentAlignment, EditorActions, EditorState, ExportFormat, ImageMode, ImageOpportunity, LucideIconConfig, SoiSize, } from '../types';
+import type { BrandId, ChatLine, ContentAlignment, EditorActions, EditorState, ExportFormat, ImageMode, ImageOpportunity, LucideIconConfig, SoiSize } from '../types';
 
 
 type Store = EditorState & EditorActions;
@@ -38,9 +38,23 @@ export const useEditorStore = create<Store>((set) => ({
   overlayColor: '#FFFFFF',
   overlayOpacity: 92,
   overlayPosition: 40,
+  overlayDirection: 'left-right' as ('left-right' | 'top-bottom'),
   socLogoGridImages: [null, null, null, null, null, null],
   customIconImages: [null, null, null, null, null, null] as (HTMLImageElement | null)[],
   contentAlignment: 'center' as ContentAlignment,
+  cbTitlePosition: 'top-center' as ('top-center' | 'left-center'),
+  cbVsLogos: [null, null] as (HTMLImageElement | null)[],
+  cbToolImages: [null, null, null, null, null] as (HTMLImageElement | null)[],
+  cbCostLogo: null as HTMLImageElement | null,
+  cbRating: 4.5,
+  mcbHeadlineWidth: 360,
+  mcbSubtitleWidth: 360,
+  cbBgColor: '#FFFFFF',
+  cbBgColor2: '#F8F4F0',
+  cbBgType: 'gradient' as ('solid' | 'gradient'),
+  cbBgGradientDir: 'left-right' as ('left-right' | 'top-bottom' | 'diagonal'),
+  cbImageOffsetX: 0,
+  cbImageOffsetY: 0,
 
   // Actions
   setBrandId: (id: BrandId) => set(() => {
@@ -73,6 +87,7 @@ export const useEditorStore = create<Store>((set) => ({
   setOverlayColor: (overlayColor: string) => set({ overlayColor }),
   setOverlayOpacity: (overlayOpacity: number) => set({ overlayOpacity }),
   setOverlayPosition: (overlayPosition: number) => set({ overlayPosition }),
+  setOverlayDirection: (overlayDirection) => set({ overlayDirection }),
   setSocLogoGridImage: (index: number, img: HTMLImageElement | null) =>
     set((s) => {
       const updated = [...s.socLogoGridImages];
@@ -86,4 +101,17 @@ export const useEditorStore = create<Store>((set) => ({
       return { customIconImages: updated };
     }),
   setContentAlignment: (contentAlignment: ContentAlignment) => set({ contentAlignment }),
+  setCbTitlePosition: (cbTitlePosition) => set({ cbTitlePosition }),
+  setCbVsLogo: (index, img) => set((s) => { const u = [...s.cbVsLogos]; u[index] = img; return { cbVsLogos: u }; }),
+  setCbToolImage: (index, img) => set((s) => { const u = [...s.cbToolImages]; u[index] = img; return { cbToolImages: u }; }),
+  setCbCostLogo: (cbCostLogo) => set({ cbCostLogo }),
+  setCbRating: (cbRating) => set({ cbRating }),
+  setMcbHeadlineWidth: (mcbHeadlineWidth) => set({ mcbHeadlineWidth }),
+  setMcbSubtitleWidth: (mcbSubtitleWidth) => set({ mcbSubtitleWidth }),
+  setCbBgColor: (cbBgColor) => set({ cbBgColor }),
+  setCbBgColor2: (cbBgColor2) => set({ cbBgColor2 }),
+  setCbBgType: (cbBgType) => set({ cbBgType }),
+  setCbBgGradientDir: (cbBgGradientDir) => set({ cbBgGradientDir }),
+  setCbImageOffsetX: (cbImageOffsetX) => set({ cbImageOffsetX }),
+  setCbImageOffsetY: (cbImageOffsetY) => set({ cbImageOffsetY }),
 }));
