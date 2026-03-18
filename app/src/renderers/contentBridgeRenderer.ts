@@ -131,12 +131,10 @@ function renderTypeB(ctx: CanvasRenderingContext2D, W: number, H: number, state:
 
     const headLines = wrapText(ctx, headline, maxTextW);
     const headLineH = 58;
-    const blockH = headLines.length * headLineH;
 
     const subLineH = 34;
     ctx.font = `400 24px Poppins`;
     const subLines = subtitle ? wrapText(ctx, subtitle, maxTextW) : [];
-    const subBlockH = subLines.length > 0 ? subLines.length * subLineH + 20 : 0;
 
     // Draw headline
     ctx.font = `700 46px Poppins`;

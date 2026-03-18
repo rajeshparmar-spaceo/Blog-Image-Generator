@@ -9,6 +9,7 @@ const BRAND_COLORS: Record<BrandId, string> = {
   soi: '#A3C423',
   taskrhino: '#7C3AED',
   welco: '#004CE6',
+  contentbridge: '#F67B37',
 };
 
 export function BrandSelector() {

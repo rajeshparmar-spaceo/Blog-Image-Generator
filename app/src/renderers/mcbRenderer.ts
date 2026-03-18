@@ -9,7 +9,6 @@ import { drawSharedIllustration } from './sharedIllustrations';
 
 const PRIMARY = '#2B7DE9';
 const TEXT_X = 50;
-const TEXT_MAX_WIDTH = 360;
 
 export function mcbRenderer(ctx: CanvasRenderingContext2D, state: EditorState): void {
   const W = 1000;
