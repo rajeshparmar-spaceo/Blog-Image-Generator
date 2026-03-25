@@ -10,6 +10,8 @@ export function TextInputs() {
     subtitle, setSubtitle,
     stepItems, setStepItems,
     chatLines, setChatLines,
+    titleColor, setTitleColor,
+    subtitleColor, setSubtitleColor,
   } = useEditorStore();
 
   const showStepList = (variant === 'typeD' && (brandId === 'soc' || brandId === 'soa' || brandId === 'soi' || brandId === 'mcb')) ||
@@ -20,9 +22,21 @@ export function TextInputs() {
     <section className="flex flex-col gap-3">
       {/* Headline */}
       <div>
-        <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-          Headline
-        </label>
+        <div className="flex items-center justify-between mb-1.5">
+          <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            Headline
+          </label>
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs text-slate-500">Color</span>
+            <input
+              type="color"
+              value={titleColor}
+              onChange={(e) => setTitleColor(e.target.value)}
+              className="w-7 h-7 rounded cursor-pointer border border-slate-600 bg-transparent p-0.5"
+              title="Headline color"
+            />
+          </div>
+        </div>
         <textarea
           value={headline}
           onChange={(e) => setHeadline(e.target.value)}
@@ -34,9 +48,21 @@ export function TextInputs() {
 
       {/* Subtitle */}
       <div>
-        <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-          Subtitle
-        </label>
+        <div className="flex items-center justify-between mb-1.5">
+          <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            Subtitle
+          </label>
+          <div className="flex items-center gap-1.5">
+            <span className="text-xs text-slate-500">Color</span>
+            <input
+              type="color"
+              value={subtitleColor}
+              onChange={(e) => setSubtitleColor(e.target.value)}
+              className="w-7 h-7 rounded cursor-pointer border border-slate-600 bg-transparent p-0.5"
+              title="Subtitle color"
+            />
+          </div>
+        </div>
         <textarea
           value={subtitle}
           onChange={(e) => setSubtitle(e.target.value)}

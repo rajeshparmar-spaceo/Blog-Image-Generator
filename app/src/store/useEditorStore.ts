@@ -44,7 +44,7 @@ export const useEditorStore = create<Store>((set) => ({
   contentAlignment: 'center' as ContentAlignment,
   cbTitlePosition: 'top-center' as ('top-center' | 'left-center'),
   cbVsLogos: [null, null] as (HTMLImageElement | null)[],
-  cbToolImages: [null, null, null, null, null] as (HTMLImageElement | null)[],
+  cbToolImages: [null, null, null, null, null, null, null, null] as (HTMLImageElement | null)[],
   cbCostLogo: null as HTMLImageElement | null,
   cbRating: 4.5,
   mcbHeadlineWidth: 360,
@@ -55,6 +55,15 @@ export const useEditorStore = create<Store>((set) => ({
   cbBgGradientDir: 'left-right' as ('left-right' | 'top-bottom' | 'diagonal'),
   cbImageOffsetX: 0,
   cbImageOffsetY: 0,
+  cbImageWidth: 0,
+  cbImageHeight: 0,
+  cbImageLockAspect: true,
+  cbTypeCHeadlineWidth: 1000,
+  cbTypeCSubtitleWidth: 900,
+  cbToolNameEnabled: true,
+  cbToolLogoSize: 75,
+  titleColor: '#1A1A2E',
+  subtitleColor: '#4A5568',
 
   // Actions
   setBrandId: (id: BrandId) => set(() => {
@@ -114,4 +123,13 @@ export const useEditorStore = create<Store>((set) => ({
   setCbBgGradientDir: (cbBgGradientDir) => set({ cbBgGradientDir }),
   setCbImageOffsetX: (cbImageOffsetX) => set({ cbImageOffsetX }),
   setCbImageOffsetY: (cbImageOffsetY) => set({ cbImageOffsetY }),
+  setCbImageWidth: (cbImageWidth) => set({ cbImageWidth }),
+  setCbImageHeight: (cbImageHeight) => set({ cbImageHeight }),
+  setCbImageLockAspect: (cbImageLockAspect) => set({ cbImageLockAspect }),
+  setCbTypeCHeadlineWidth: (cbTypeCHeadlineWidth) => set({ cbTypeCHeadlineWidth }),
+  setCbTypeCSubtitleWidth: (cbTypeCSubtitleWidth) => set({ cbTypeCSubtitleWidth }),
+  setCbToolNameEnabled: (cbToolNameEnabled) => set({ cbToolNameEnabled }),
+  setCbToolLogoSize: (cbToolLogoSize) => set({ cbToolLogoSize }),
+  setTitleColor: (titleColor) => set({ titleColor }),
+  setSubtitleColor: (subtitleColor) => set({ subtitleColor }),
 }));

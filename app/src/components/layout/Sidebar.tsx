@@ -21,7 +21,9 @@ export function Sidebar() {
   const { brandId, variant, imageMode, cbTitlePosition } = useEditorStore();
 
   const isCB = brandId === 'contentbridge';
-  const showStockPhoto = brandId !== 'taskrhino' && !(brandId === 'welco' && (variant === 'typeB1' || variant === 'typeB2')) && !(isCB && (variant === 'typeC' || variant === 'typeD' || variant === 'typeE'));
+  const isTB = brandId === 'textbolt';
+  const isCBorTB = isCB || isTB;
+  const showStockPhoto = brandId !== 'taskrhino' && !(brandId === 'welco' && (variant === 'typeB1' || variant === 'typeB2')) && !(isCBorTB && (variant === 'typeC' || variant === 'typeD' || variant === 'typeE'));
   const showIconPicker =
     (brandId === 'soc' && variant === 'typeA') ||
     (brandId === 'soa' && variant === 'typeA') ||
@@ -29,7 +31,7 @@ export function Sidebar() {
     (brandId === 'mcb' && variant === 'typeA') ||
     brandId === 'taskrhino' ||
     (brandId === 'welco' && (variant === 'typeA1' || variant === 'typeA2'));
-  const showOverlay = brandId === 'mcb' || brandId === 'soa' || brandId === 'soc' || brandId === 'soi' || (isCB && variant === 'typeA');
+  const showOverlay = brandId === 'mcb' || brandId === 'soa' || brandId === 'soc' || brandId === 'soi' || (isCBorTB && variant === 'typeA');
   const showLogoGrid = variant === 'typeB' && (brandId === 'soc' || brandId === 'soa' || brandId === 'soi' || brandId === 'mcb');
 
   return (
@@ -67,21 +69,21 @@ export function Sidebar() {
               </>
             )}
 
-            {isCB && (variant === 'typeA' || variant === 'typeB') && (
+            {isCBorTB && (variant === 'typeA' || variant === 'typeB') && (
               <>
                 <div className="border-t border-slate-800" />
                 <CBTitlePositionSelector />
               </>
             )}
 
-            {isCB && variant === 'typeB' && (
+            {isCBorTB && variant === 'typeB' && (
               <>
                 <div className="border-t border-slate-800" />
                 <CBTypeBBgPanel />
               </>
             )}
 
-            {isCB && variant === 'typeB' && cbTitlePosition === 'top-center' && (
+            {isCBorTB && variant === 'typeB' && cbTitlePosition === 'top-center' && (
               <>
                 <div className="border-t border-slate-800" />
                 <CBTypeBImagePosition />
@@ -90,7 +92,7 @@ export function Sidebar() {
 
             {showOverlay && (
               <>
-                {!(isCB && variant === 'typeA') && (
+                {!(isCBorTB && variant === 'typeA') && (
                   <>
                     <div className="border-t border-slate-800" />
                     <AlignmentSelector />
@@ -115,20 +117,20 @@ export function Sidebar() {
               </>
             )}
 
-            {/* ContentBridge-specific controls */}
-            {isCB && variant === 'typeD' && (
+            {/* ContentBridge / TextBolt shared controls */}
+            {isCBorTB && variant === 'typeD' && (
               <>
                 <div className="border-t border-slate-800" />
                 <CBVsLogoUpload />
               </>
             )}
-            {isCB && variant === 'typeC' && (
+            {isCBorTB && variant === 'typeC' && (
               <>
                 <div className="border-t border-slate-800" />
                 <CBToolUpload />
               </>
             )}
-            {isCB && variant === 'typeE' && (
+            {isCBorTB && variant === 'typeE' && (
               <>
                 <div className="border-t border-slate-800" />
                 <CBCostReviewPanel />

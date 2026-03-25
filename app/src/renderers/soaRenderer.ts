@@ -14,7 +14,7 @@ const TEXT_MAX_WIDTH = 270;
 export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): void {
   const W = 708;
   const H = 374;
-  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages } = state;
+  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages, titleColor, subtitleColor } = state;
 
   // 1. Background
   if (stockImage) {
@@ -67,7 +67,7 @@ export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Headline — narrow maxWidth = 210px stacks words
   ctx.font = `600 28px Poppins`;
-  ctx.fillStyle = '#1A1A2E';
+  ctx.fillStyle = titleColor;
   let headY = startY + barH + barToHead;
   for (const line of headLines) {
     ctx.fillText(line, TEXT_X, headY);
@@ -76,7 +76,7 @@ export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Subtitle
   ctx.font = `400 16px Poppins`;
-  ctx.fillStyle = '#4A5568';
+  ctx.fillStyle = subtitleColor;
   let subY = headY + headToSub;
   for (const line of subLines) {
     ctx.fillText(line, TEXT_X, subY);

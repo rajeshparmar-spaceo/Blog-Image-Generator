@@ -10,6 +10,7 @@ const BRAND_COLORS: Record<BrandId, string> = {
   taskrhino: '#7C3AED',
   welco: '#004CE6',
   contentbridge: '#F67B37',
+  textbolt: '#FF6600',
 };
 
 export function BrandSelector() {

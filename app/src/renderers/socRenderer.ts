@@ -14,7 +14,7 @@ const TEXT_MAX_WIDTH = 420;
 export function socRenderer(ctx: CanvasRenderingContext2D, state: EditorState): void {
   const W = 1416;
   const H = 748;
-  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent } = state;
+  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, titleColor, subtitleColor } = state;
 
   // 1. Background
   if (stockImage) {
@@ -71,7 +71,7 @@ export function socRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Headline
   ctx.font = `600 40px Poppins`;
-  ctx.fillStyle = '#1A1A2E';
+  ctx.fillStyle = titleColor;
   let headY = startY + barH + barToHead;
   for (const line of headLines) {
     ctx.fillText(line, TEXT_X, headY);
@@ -80,7 +80,7 @@ export function socRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Subtitle
   ctx.font = `500 26px Poppins`;
-  ctx.fillStyle = '#4A5568';
+  ctx.fillStyle = subtitleColor;
   let subY = headY + headToSub;
   for (const line of subLines) {
     ctx.fillText(line, TEXT_X, subY);

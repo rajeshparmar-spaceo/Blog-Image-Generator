@@ -1,4 +1,4 @@
-export type BrandId = 'mcb' | 'soa' | 'soc' | 'soi' | 'taskrhino' | 'welco' | 'contentbridge';
+export type BrandId = 'mcb' | 'soa' | 'soc' | 'soi' | 'taskrhino' | 'welco' | 'contentbridge' | 'textbolt';
 
 export type ImageMode = 'featured' | 'internal';
 export type ContentAlignment = 'top' | 'center';
@@ -97,6 +97,15 @@ export interface EditorState {
   cbBgGradientDir: 'left-right' | 'top-bottom' | 'diagonal';
   cbImageOffsetX: number;
   cbImageOffsetY: number;
+  cbImageWidth: number;
+  cbImageHeight: number;
+  cbImageLockAspect: boolean;
+  cbTypeCHeadlineWidth: number;
+  cbTypeCSubtitleWidth: number;
+  cbToolNameEnabled: boolean;
+  cbToolLogoSize: number;
+  titleColor: string;
+  subtitleColor: string;
 }
 
 export interface EditorActions {
@@ -143,4 +152,13 @@ export interface EditorActions {
   setCbBgGradientDir: (dir: 'left-right' | 'top-bottom' | 'diagonal') => void;
   setCbImageOffsetX: (v: number) => void;
   setCbImageOffsetY: (v: number) => void;
+  setCbImageWidth: (v: number) => void;
+  setCbImageHeight: (v: number) => void;
+  setCbImageLockAspect: (v: boolean) => void;
+  setCbTypeCHeadlineWidth: (v: number) => void;
+  setCbTypeCSubtitleWidth: (v: number) => void;
+  setCbToolNameEnabled: (v: boolean) => void;
+  setCbToolLogoSize: (v: number) => void;
+  setTitleColor: (color: string) => void;
+  setSubtitleColor: (color: string) => void;
 }

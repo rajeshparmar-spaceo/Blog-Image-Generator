@@ -7,7 +7,7 @@ import { detectIllustration, drawIllustration } from './taskRhinoIllustrations';
 export function taskRhinoRenderer(ctx: CanvasRenderingContext2D, state: EditorState): void {
   const W = 1365;
   const H = 640;
-  const { headline, subtitle, variant, selectedIcons, logoImages, sourceContent } = state;
+  const { headline, subtitle, variant, selectedIcons, logoImages, sourceContent, titleColor, subtitleColor } = state;
 
   // 1. Lavender gradient background
   const bgGrad = ctx.createLinearGradient(0, 0, W, H);
@@ -54,7 +54,7 @@ export function taskRhinoRenderer(ctx: CanvasRenderingContext2D, state: EditorSt
 
   const headlineFont = '"Fraunces", Georgia, serif';
   ctx.font = `800 52px ${headlineFont}`;
-  ctx.fillStyle = '#1A1A1A';
+  ctx.fillStyle = titleColor;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'top';
   const headLines = wrapText(ctx, headline, textMaxWidth);
@@ -65,7 +65,7 @@ export function taskRhinoRenderer(ctx: CanvasRenderingContext2D, state: EditorSt
   }
 
   ctx.font = '400 20px Inter';
-  ctx.fillStyle = '#4A4A4A';
+  ctx.fillStyle = subtitleColor;
   const subLines = wrapText(ctx, subtitle, textMaxWidth);
   let subY = headY + 18;
   for (const line of subLines) {

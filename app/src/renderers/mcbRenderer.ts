@@ -13,7 +13,7 @@ const TEXT_X = 50;
 export function mcbRenderer(ctx: CanvasRenderingContext2D, state: EditorState): void {
   const W = 1000;
   const H = 500;
-  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages, mcbHeadlineWidth, mcbSubtitleWidth } = state;
+  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages, mcbHeadlineWidth, mcbSubtitleWidth, titleColor, subtitleColor } = state;
 
   // 1. Background: stockImage cover-fit OR white→lightblue gradient
   if (stockImage) {
@@ -68,7 +68,7 @@ export function mcbRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Headline
   ctx.font = `700 32px Poppins`;
-  ctx.fillStyle = '#1A1A2E';
+  ctx.fillStyle = titleColor;
   let headY = startY + barH + barToHead;
   for (const line of headLines) {
     ctx.fillText(line, TEXT_X, headY);
@@ -77,7 +77,7 @@ export function mcbRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Subtitle
   ctx.font = `400 18px Poppins`;
-  ctx.fillStyle = '#4A5568';
+  ctx.fillStyle = subtitleColor;
   let subY = headY + headToSub;
   for (const line of subLines) {
     ctx.fillText(line, TEXT_X, subY);

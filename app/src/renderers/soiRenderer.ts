@@ -19,7 +19,7 @@ export function soiRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   const headFontSize = isWide ? 38 : 26;
   const subFontSize = isWide ? 20 : 15;
 
-  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages } = state;
+  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages, titleColor, subtitleColor } = state;
 
   // 1. Background
   if (stockImage) {
@@ -75,7 +75,7 @@ export function soiRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Headline
   ctx.font = `600 ${headFontSize}px Poppins`;
-  ctx.fillStyle = '#1A1A2E';
+  ctx.fillStyle = titleColor;
   let headY = startY + barH + barToHead;
   for (const line of headLines) {
     ctx.fillText(line, TEXT_X, headY);
@@ -84,7 +84,7 @@ export function soiRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Subtitle
   ctx.font = `400 ${subFontSize}px Poppins`;
-  ctx.fillStyle = '#4A5568';
+  ctx.fillStyle = subtitleColor;
   let subY = headY + headToSub;
   for (const line of subLines) {
     ctx.fillText(line, TEXT_X, subY);

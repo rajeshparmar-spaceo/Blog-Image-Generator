@@ -25,7 +25,7 @@ export function contentBridgeRenderer(ctx: CanvasRenderingContext2D, state: Edit
 
 // ── Type A — Simple Image ────────────────────────────────────────────────────
 function renderTypeA(ctx: CanvasRenderingContext2D, W: number, H: number, state: EditorState): void {
-  const { headline, subtitle, stockImage, cbTitlePosition, overlayDirection } = state;
+  const { headline, subtitle, stockImage, cbTitlePosition, overlayDirection, titleColor, subtitleColor } = state;
 
   // Background
   if (stockImage) {
@@ -73,7 +73,7 @@ function renderTypeA(ctx: CanvasRenderingContext2D, W: number, H: number, state:
 
   // Headline
   ctx.font = `700 52px Poppins`;
-  ctx.fillStyle = DARK;
+  ctx.fillStyle = titleColor;
   let y = startY;
   for (const line of lines) {
     ctx.fillText(line, startX, y);
@@ -83,7 +83,7 @@ function renderTypeA(ctx: CanvasRenderingContext2D, W: number, H: number, state:
   // Subtitle
   if (subLines.length > 0) {
     ctx.font = `400 28px Poppins`;
-    ctx.fillStyle = stockImage ? 'rgba(30,30,30,0.85)' : '#4A5568';
+    ctx.fillStyle = subtitleColor;
     y += 16;
     for (const line of subLines) {
       ctx.fillText(line, startX, y);
@@ -97,6 +97,8 @@ function renderTypeB(ctx: CanvasRenderingContext2D, W: number, H: number, state:
   const {
     headline, subtitle, stockImage, cbTitlePosition,
     cbBgColor, cbBgColor2, cbBgType, cbBgGradientDir, cbImageOffsetX, cbImageOffsetY, sourceContent,
+    cbImageWidth, cbImageHeight,
+    titleColor, subtitleColor,
   } = state;
 
   const halfW = W / 2; // 708
@@ -138,7 +140,7 @@ function renderTypeB(ctx: CanvasRenderingContext2D, W: number, H: number, state:
 
     // Draw headline
     ctx.font = `700 46px Poppins`;
-    ctx.fillStyle = DARK;
+    ctx.fillStyle = titleColor;
     let y = 50;
     for (const line of headLines) {
       ctx.fillText(line, W / 2, y);
@@ -148,7 +150,7 @@ function renderTypeB(ctx: CanvasRenderingContext2D, W: number, H: number, state:
     // Draw subtitle
     if (subLines.length > 0) {
       ctx.font = `400 24px Poppins`;
-      ctx.fillStyle = '#4A5568';
+      ctx.fillStyle = subtitleColor;
       y += 20;
       for (const line of subLines) {
         ctx.fillText(line, W / 2, y);
@@ -162,9 +164,23 @@ function renderTypeB(ctx: CanvasRenderingContext2D, W: number, H: number, state:
     const availW = W - 120;
 
     if (stockImage) {
-      const scale = Math.min(availW / stockImage.width, availH / stockImage.height);
-      const dw = stockImage.width * scale;
-      const dh = stockImage.height * scale;
+      let dw: number;
+      let dh: number;
+      const aspect = stockImage.width / stockImage.height;
+      if (cbImageWidth > 0 && cbImageHeight > 0) {
+        dw = cbImageWidth;
+        dh = cbImageHeight;
+      } else if (cbImageWidth > 0) {
+        dw = cbImageWidth;
+        dh = Math.round(cbImageWidth / aspect);
+      } else if (cbImageHeight > 0) {
+        dh = cbImageHeight;
+        dw = Math.round(cbImageHeight * aspect);
+      } else {
+        const scale = Math.min(availW / stockImage.width, availH / stockImage.height);
+        dw = stockImage.width * scale;
+        dh = stockImage.height * scale;
+      }
       const imgX = (W - dw) / 2 + cbImageOffsetX;
       const imgY = textEndY + (availH - dh) / 2 + cbImageOffsetY;
 
@@ -224,7 +240,7 @@ function renderTypeB(ctx: CanvasRenderingContext2D, W: number, H: number, state:
     const headY = Math.round((H - totalTextH) / 2);
 
     ctx.font = `700 46px Poppins`;
-    ctx.fillStyle = DARK;
+    ctx.fillStyle = titleColor;
     ctx.textAlign = 'left';
     let y = headY;
     for (const line of headLines) {
@@ -234,7 +250,7 @@ function renderTypeB(ctx: CanvasRenderingContext2D, W: number, H: number, state:
 
     if (subLines.length > 0) {
       ctx.font = `400 24px Poppins`;
-      ctx.fillStyle = '#4A5568';
+      ctx.fillStyle = subtitleColor;
       y += 28;
       for (const line of subLines) {
         ctx.fillText(line, 70, y);
@@ -246,7 +262,11 @@ function renderTypeB(ctx: CanvasRenderingContext2D, W: number, H: number, state:
 
 // ── Type C — Alternatives Tools ──────────────────────────────────────────────
 function renderTypeC(ctx: CanvasRenderingContext2D, W: number, H: number, state: EditorState): void {
-  const { headline, stepItems, cbToolImages } = state;
+  const {
+    headline, subtitle, stepItems, cbToolImages,
+    titleColor, subtitleColor,
+    cbTypeCHeadlineWidth, cbTypeCSubtitleWidth, cbToolNameEnabled, cbToolLogoSize,
+  } = state;
 
   // Background
   const bg = ctx.createLinearGradient(0, 0, W, H);
@@ -255,88 +275,146 @@ function renderTypeC(ctx: CanvasRenderingContext2D, W: number, H: number, state:
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, W, H);
 
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'top';
 
-  // Title — top center
+  // Headline — top center
   ctx.font = `700 44px Poppins`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'top';
-  ctx.fillStyle = DARK;
-  const headLines = wrapText(ctx, headline, W - 200);
-  let headY = 50;
+  ctx.fillStyle = titleColor;
+  const headLines = wrapText(ctx, headline, cbTypeCHeadlineWidth);
+  let textY = 50;
   for (const line of headLines) {
-    ctx.fillText(line, W / 2, headY);
-    headY += 58;
+    ctx.fillText(line, W / 2, textY);
+    textY += 58;
   }
 
-
-  // Tool cards — centered row
-  const tools = cbToolImages.filter(Boolean).length;
-  const toolCount = Math.max(1, Math.min(5, tools || stepItems.length || 3));
-  const cardW = 180;
-  const cardH = 140;
-  const gap = 24;
-  const totalW = toolCount * (cardW + gap) - gap;
-  const startX = (W - totalW) / 2;
-  const startY = headY + 50;
-
-  for (let i = 0; i < toolCount; i++) {
-    const x = startX + i * (cardW + gap);
-    const img = cbToolImages[i];
-    const label = stepItems[i] || `Tool ${i + 1}`;
-
-    // Card shadow
-    ctx.save();
-    ctx.shadowColor = 'rgba(0,0,0,0.1)';
-    ctx.shadowBlur = 16;
-    ctx.beginPath();
-    ctx.roundRect(x, startY, cardW, cardH, 16);
-    ctx.fillStyle = '#FFFFFF';
-    ctx.fill();
-    ctx.restore();
-
-    // Card border
-    ctx.beginPath();
-    ctx.roundRect(x, startY, cardW, cardH, 16);
-    ctx.strokeStyle = '#E6E6E6';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    // Logo or placeholder
-    if (img) {
-      const pad = 24;
-      const maxImgW = cardW - pad * 2;
-      const maxImgH = cardH - pad * 2 - 24;
-      const scale = Math.min(maxImgW / img.width, maxImgH / img.height);
-      const dw = img.width * scale;
-      const dh = img.height * scale;
-      ctx.drawImage(img, x + (cardW - dw) / 2, startY + pad, dw, dh);
-    } else {
-      ctx.font = '600 13px Inter';
-      ctx.fillStyle = '#94A3B8';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(label, x + cardW / 2, startY + cardH / 2 - 12);
+  // Subtitle — below headline
+  if (subtitle) {
+    ctx.font = `400 26px Poppins`;
+    ctx.fillStyle = subtitleColor;
+    const subLines = wrapText(ctx, subtitle, cbTypeCSubtitleWidth);
+    textY += 14;
+    for (const line of subLines) {
+      ctx.fillText(line, W / 2, textY);
+      textY += 36;
     }
-
-    // Label below logo
-    ctx.font = '500 13px Inter';
-    ctx.fillStyle = '#4A5568';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'bottom';
-    ctx.fillText(label, x + cardW / 2, startY + cardH - 10);
   }
 
-  // "vs ContentBridge" ribbon at bottom
-  ctx.font = '600 20px Poppins';
-  ctx.fillStyle = PRIMARY;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'top';
-  ctx.fillText('vs ContentBridge', W / 2, startY + cardH + 28);
+  // Tool cards — grid layout
+  const filledImages = cbToolImages.filter(Boolean).length;
+  const filledNames = stepItems.filter(s => s.trim()).length;
+  const toolCount = Math.max(1, Math.min(8, filledImages || filledNames || 3));
+
+  // Choose columns: balanced grid
+  let cols: number;
+  if (toolCount <= 4) cols = toolCount;
+  else if (toolCount <= 6) cols = 3;
+  else cols = 4;
+  const rowCount = Math.ceil(toolCount / cols);
+
+  const gap = 20;
+  const pad = 20;
+  const nameLabelH = cbToolNameEnabled ? 30 : 0;
+  const sizeFactor = cbToolLogoSize / 100;
+  const bottomPad = 44;
+
+  // ── Step 1: derive max card bounds from grid + canvas constraints ──
+  const availW = W - 80;
+  const maxCardW = Math.floor((availW - (cols - 1) * gap) / cols);
+  const spaceForGrid = H - textY - 36 - bottomPad;
+  const maxCardH = Math.floor((spaceForGrid - (rowCount - 1) * gap) / rowCount);
+  const maxImgAreaW = maxCardW - pad * 2;
+  const maxImgAreaH = maxCardH - pad * 2 - nameLabelH;
+
+  // ── Step 2: measure every logo inside those bounds → find largest rendered W & H ──
+  // Scale each logo to fit maxImgAreaW × maxImgAreaH, apply sizeFactor, record result.
+  // The maximum rendered W and H across all logos become the uniform logo area size.
+  let maxLogoW = 48;
+  let maxLogoH = 48;
+  for (let i = 0; i < toolCount; i++) {
+    const img = cbToolImages[i];
+    if (img) {
+      const scale = Math.min(maxImgAreaW / img.width, maxImgAreaH / img.height) * sizeFactor;
+      const rw = img.width * scale;
+      const rh = img.height * scale;
+      if (rw > maxLogoW) maxLogoW = rw;
+      if (rh > maxLogoH) maxLogoH = rh;
+    }
+  }
+
+  // Clamp to the max area so we never exceed canvas bounds
+  const logoAreaW = Math.min(Math.ceil(maxLogoW), maxImgAreaW);
+  const logoAreaH = Math.min(Math.ceil(maxLogoH), maxImgAreaH);
+
+  // Uniform card size driven by logo content
+  const cardW = logoAreaW + pad * 2;
+  const cardH = logoAreaH + pad * 2 + nameLabelH;
+
+  // ── Step 3: center the grid block vertically in remaining space ──
+  const gridH = rowCount * cardH + (rowCount - 1) * gap;
+  const cardsTopY = textY + 36 + Math.max(0, Math.round((spaceForGrid - gridH) / 2));
+
+  // ── Step 4: draw cards ──
+  for (let r = 0; r < rowCount; r++) {
+    const rowStart = r * cols;
+    const rowEnd = Math.min(rowStart + cols, toolCount);
+    const itemsInRow = rowEnd - rowStart;
+    const rowTotalW = itemsInRow * cardW + (itemsInRow - 1) * gap;
+    const rowX = (W - rowTotalW) / 2;
+    const rowY = cardsTopY + r * (cardH + gap);
+
+    for (let c = 0; c < itemsInRow; c++) {
+      const idx = rowStart + c;
+      const x = rowX + c * (cardW + gap);
+      const img = cbToolImages[idx] ?? null;
+      const label = stepItems[idx] || `Tool ${idx + 1}`;
+
+      // Card shadow
+      ctx.save();
+      ctx.shadowColor = 'rgba(0,0,0,0.09)';
+      ctx.shadowBlur = 18;
+      ctx.beginPath();
+      ctx.roundRect(x, rowY, cardW, cardH, 16);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+      ctx.restore();
+
+      // Card border
+      ctx.beginPath();
+      ctx.roundRect(x, rowY, cardW, cardH, 16);
+      ctx.strokeStyle = '#E8E8E8';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      if (img) {
+        // Re-scale within uniform logoAreaW × logoAreaH bounds
+        const scale = Math.min(logoAreaW / img.width, logoAreaH / img.height) * sizeFactor;
+        const dw = img.width * scale;
+        const dh = img.height * scale;
+        ctx.drawImage(img, x + (cardW - dw) / 2, rowY + pad + (logoAreaH - dh) / 2, dw, dh);
+      } else {
+        ctx.font = `500 12px Inter`;
+        ctx.fillStyle = '#94A3B8';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(label, x + cardW / 2, rowY + pad + logoAreaH / 2);
+      }
+
+      // Tool name — pinned to bottom of card
+      if (cbToolNameEnabled) {
+        ctx.font = `500 13px Inter`;
+        ctx.fillStyle = '#4A5568';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+        ctx.fillText(label, x + cardW / 2, rowY + cardH - 10);
+      }
+    }
+  }
 }
 
 // ── Type D — VS Comparison ───────────────────────────────────────────────────
 function renderTypeD(ctx: CanvasRenderingContext2D, W: number, H: number, state: EditorState): void {
-  const { headline, cbVsLogos } = state;
+  const { headline, cbVsLogos, titleColor } = state;
 
   // Dark gradient background
   const bg = ctx.createLinearGradient(0, 0, W, H);
@@ -358,11 +436,11 @@ function renderTypeD(ctx: CanvasRenderingContext2D, W: number, H: number, state:
   }
   ctx.restore();
 
-  // Title — top center, white
+  // Title — top center
   ctx.font = `700 48px Poppins`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
-  ctx.fillStyle = '#FFFFFF';
+  ctx.fillStyle = titleColor;
   const headLines = wrapText(ctx, headline, W - 200);
   let headY = 52;
   for (const line of headLines) {
@@ -442,7 +520,7 @@ function renderTypeD(ctx: CanvasRenderingContext2D, W: number, H: number, state:
 
 // ── Type E — Cost + Reviews ──────────────────────────────────────────────────
 function renderTypeE(ctx: CanvasRenderingContext2D, W: number, H: number, state: EditorState): void {
-  const { headline, subtitle, stepItems, cbCostLogo, cbRating } = state;
+  const { headline, subtitle, stepItems, cbCostLogo, cbRating, titleColor } = state;
 
   // Background
   const bg = ctx.createLinearGradient(0, 0, W, H);
@@ -456,7 +534,7 @@ function renderTypeE(ctx: CanvasRenderingContext2D, W: number, H: number, state:
   ctx.font = `700 42px Poppins`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'top';
-  ctx.fillStyle = DARK;
+  ctx.fillStyle = titleColor;
   const headLines = wrapText(ctx, headline, W - 200);
   let headY = 52;
   for (const line of headLines) {

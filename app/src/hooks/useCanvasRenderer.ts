@@ -8,6 +8,7 @@ import { soiRenderer } from '../renderers/soiRenderer';
 import { taskRhinoRenderer } from '../renderers/taskRhinoRenderer';
 import { welcoRenderer } from '../renderers/welcoRenderer';
 import { contentBridgeRenderer } from '../renderers/contentBridgeRenderer';
+import { textBoltRenderer } from '../renderers/textBoltRenderer';
 import { renderInternalImage } from '../renderers/internalImageRenderer';
 
 export function useCanvasRenderer(canvasRef: RefObject<HTMLCanvasElement | null>) {
@@ -36,6 +37,7 @@ export function useCanvasRenderer(canvasRef: RefObject<HTMLCanvasElement | null>
       case 'taskrhino':     taskRhinoRenderer(ctx, state);     break;
       case 'welco':         welcoRenderer(ctx, state);         break;
       case 'contentbridge': contentBridgeRenderer(ctx, state); break;
+      case 'textbolt':      textBoltRenderer(ctx, state);      break;
     }
   }, [
     state.imageMode,
@@ -48,6 +50,9 @@ export function useCanvasRenderer(canvasRef: RefObject<HTMLCanvasElement | null>
     state.mcbHeadlineWidth, state.mcbSubtitleWidth,
     state.cbBgColor, state.cbBgColor2, state.cbBgType, state.cbBgGradientDir,
     state.cbImageOffsetX, state.cbImageOffsetY,
+    state.cbImageWidth, state.cbImageHeight,
+    state.cbTypeCHeadlineWidth, state.cbTypeCSubtitleWidth, state.cbToolNameEnabled, state.cbToolLogoSize,
+    state.titleColor, state.subtitleColor,
     canvasRef,
   ]);
 
