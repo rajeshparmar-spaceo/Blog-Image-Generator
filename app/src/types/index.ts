@@ -80,11 +80,11 @@ export interface EditorState {
   overlayColor: string;
   overlayOpacity: number;
   overlayPosition: number;
-  overlayDirection: 'left-right' | 'top-bottom';
+  overlayDirection: 'left-right' | 'top-bottom' | 'right-left';
   socLogoGridImages: (HTMLImageElement | null)[];
   customIconImages: (HTMLImageElement | null)[];
   contentAlignment: ContentAlignment;
-  cbTitlePosition: 'top-center' | 'left-center';
+  cbTitlePosition: 'top-center' | 'left-center' | 'right-center';
   cbVsLogos: (HTMLImageElement | null)[];
   cbToolImages: (HTMLImageElement | null)[];
   cbCostLogo: HTMLImageElement | null;

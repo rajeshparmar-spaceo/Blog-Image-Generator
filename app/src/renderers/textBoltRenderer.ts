@@ -47,6 +47,9 @@ function drawWarmBackground(ctx: CanvasRenderingContext2D, W: number, H: number)
 function renderTypeA(ctx: CanvasRenderingContext2D, W: number, H: number, state: EditorState): void {
   const { headline, subtitle, stockImage, cbTitlePosition, overlayDirection, titleColor, subtitleColor } = state;
 
+  const isTopCenter = cbTitlePosition === 'top-center';
+  const isRightCenter = cbTitlePosition === 'right-center';
+
   if (stockImage) {
     coverFitImage(ctx, stockImage, W, H);
     const isTopBottom = overlayDirection === 'top-bottom';
@@ -56,7 +59,6 @@ function renderTypeA(ctx: CanvasRenderingContext2D, W: number, H: number, state:
     drawWarmBackground(ctx, W, H);
   }
 
-  const isTopCenter = cbTitlePosition === 'top-center';
   const maxW = isTopCenter ? Math.round(W * 0.80) : Math.round(W * 0.42);
 
   ctx.font = `700 38px Poppins`;
@@ -79,9 +81,13 @@ function renderTypeA(ctx: CanvasRenderingContext2D, W: number, H: number, state:
     startY = 60;
     startX = W / 2;
     ctx.textAlign = 'center';
+  } else if (isRightCenter) {
+    startY = Math.round((H - totalH) / 2);
+    startX = W - 48;
+    ctx.textAlign = 'right';
   } else {
     startY = Math.round((H - totalH) / 2);
-    startX = 64;
+    startX = 48;
     ctx.textAlign = 'left';
   }
 

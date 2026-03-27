@@ -14,7 +14,7 @@ export function OverlayPanel() {
       <div className="flex flex-col gap-1">
         <label className="text-sm text-slate-300">Direction</label>
         <div className="flex rounded overflow-hidden border border-slate-700">
-          {(['left-right', 'top-bottom'] as const).map((dir) => (
+          {(['left-right', 'right-left', 'top-bottom'] as const).map((dir) => (
             <button
               key={dir}
               onClick={() => setOverlayDirection(dir)}
@@ -24,7 +24,7 @@ export function OverlayPanel() {
                   : 'bg-slate-800 text-slate-400 hover:bg-slate-700'
               }`}
             >
-              {dir === 'left-right' ? 'Left → Right' : 'Top → Bottom'}
+              {dir === 'left-right' ? 'Left → Right' : dir === 'right-left' ? 'Right → Left' : 'Top → Bottom'}
             </button>
           ))}
         </div>

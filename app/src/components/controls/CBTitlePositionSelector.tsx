@@ -1,10 +1,11 @@
 import { useEditorStore } from '../../store/useEditorStore';
 
-type Position = 'top-center' | 'left-center';
+type Position = 'top-center' | 'left-center' | 'right-center';
 
 const OPTIONS: { value: Position; label: string }[] = [
-  { value: 'top-center',  label: 'Top Center' },
-  { value: 'left-center', label: 'Left Center' },
+  { value: 'top-center',   label: 'Top Center' },
+  { value: 'left-center',  label: 'Left Center' },
+  { value: 'right-center', label: 'Right Center' },
 ];
 
 export function CBTitlePositionSelector() {

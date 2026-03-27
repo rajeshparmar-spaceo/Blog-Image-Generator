@@ -24,7 +24,7 @@ export function drawGradientOverlay(
   fadeWidth: number,
   opacity = 0.92,
   color = '#FFFFFF',
-  direction: 'left-right' | 'top-bottom' = 'left-right',
+  direction: 'left-right' | 'top-bottom' | 'right-left' = 'left-right',
 ): void {
   const rgb = hexToRgb(color);
 
@@ -36,6 +36,15 @@ export function drawGradientOverlay(
     grad.addColorStop(1, `rgba(${rgb},0)`);
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, canvasWidth, fadeWidth);
+  } else if (direction === 'right-left') {
+    // Gradient from right edge going left
+    const startX = canvasWidth - fadeWidth;
+    grad = ctx.createLinearGradient(canvasWidth, 0, startX, 0);
+    grad.addColorStop(0, `rgba(${rgb},${opacity})`);
+    grad.addColorStop(0.7, `rgba(${rgb},${opacity * 0.8})`);
+    grad.addColorStop(1, `rgba(${rgb},0)`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(startX, 0, fadeWidth, canvasHeight);
   } else {
     grad = ctx.createLinearGradient(0, 0, fadeWidth, 0);
     grad.addColorStop(0, `rgba(${rgb},${opacity})`);
