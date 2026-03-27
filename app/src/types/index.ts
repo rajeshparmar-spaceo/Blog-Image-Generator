@@ -135,11 +135,11 @@ export interface EditorActions {
   setOverlayColor: (color: string) => void;
   setOverlayOpacity: (opacity: number) => void;
   setOverlayPosition: (position: number) => void;
-  setOverlayDirection: (direction: 'left-right' | 'top-bottom') => void;
+  setOverlayDirection: (direction: 'left-right' | 'top-bottom' | 'right-left') => void;
   setSocLogoGridImage: (index: number, img: HTMLImageElement | null) => void;
   setCustomIconImage: (index: number, img: HTMLImageElement | null) => void;
   setContentAlignment: (alignment: ContentAlignment) => void;
-  setCbTitlePosition: (pos: 'top-center' | 'left-center') => void;
+  setCbTitlePosition: (pos: 'top-center' | 'left-center' | 'right-center') => void;
   setCbVsLogo: (index: number, img: HTMLImageElement | null) => void;
   setCbToolImage: (index: number, img: HTMLImageElement | null) => void;
   setCbCostLogo: (img: HTMLImageElement | null) => void;
