@@ -48,7 +48,6 @@ function renderTypeA(ctx: CanvasRenderingContext2D, W: number, H: number, state:
   const { headline, subtitle, stockImage, cbTitlePosition, overlayDirection, titleColor, subtitleColor } = state;
 
   const isTopCenter = cbTitlePosition === 'top-center';
-  const isRightCenter = cbTitlePosition === 'right-center';
 
   if (stockImage) {
     coverFitImage(ctx, stockImage, W, H);
@@ -81,10 +80,6 @@ function renderTypeA(ctx: CanvasRenderingContext2D, W: number, H: number, state:
     startY = 60;
     startX = W / 2;
     ctx.textAlign = 'center';
-  } else if (isRightCenter) {
-    startY = Math.round((H - totalH) / 2);
-    startX = W - 48;
-    ctx.textAlign = 'right';
   } else {
     startY = Math.round((H - totalH) / 2);
     startX = 48;

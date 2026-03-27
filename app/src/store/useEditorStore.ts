@@ -42,7 +42,7 @@ export const useEditorStore = create<Store>((set) => ({
   socLogoGridImages: [null, null, null, null, null, null],
   customIconImages: [null, null, null, null, null, null] as (HTMLImageElement | null)[],
   contentAlignment: 'center' as ContentAlignment,
-  cbTitlePosition: 'top-center' as ('top-center' | 'left-center' | 'right-center'),
+  cbTitlePosition: 'top-center' as ('top-center' | 'left-center'),
   cbVsLogos: [null, null] as (HTMLImageElement | null)[],
   cbToolImages: [null, null, null, null, null, null, null, null] as (HTMLImageElement | null)[],
   cbCostLogo: null as HTMLImageElement | null,

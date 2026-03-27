@@ -84,7 +84,7 @@ export interface EditorState {
   socLogoGridImages: (HTMLImageElement | null)[];
   customIconImages: (HTMLImageElement | null)[];
   contentAlignment: ContentAlignment;
-  cbTitlePosition: 'top-center' | 'left-center' | 'right-center';
+  cbTitlePosition: 'top-center' | 'left-center';
   cbVsLogos: (HTMLImageElement | null)[];
   cbToolImages: (HTMLImageElement | null)[];
   cbCostLogo: HTMLImageElement | null;
@@ -139,7 +139,7 @@ export interface EditorActions {
   setSocLogoGridImage: (index: number, img: HTMLImageElement | null) => void;
   setCustomIconImage: (index: number, img: HTMLImageElement | null) => void;
   setContentAlignment: (alignment: ContentAlignment) => void;
-  setCbTitlePosition: (pos: 'top-center' | 'left-center' | 'right-center') => void;
+  setCbTitlePosition: (pos: 'top-center' | 'left-center') => void;
   setCbVsLogo: (index: number, img: HTMLImageElement | null) => void;
   setCbToolImage: (index: number, img: HTMLImageElement | null) => void;
   setCbCostLogo: (img: HTMLImageElement | null) => void;
