@@ -64,6 +64,8 @@ export const useEditorStore = create<Store>((set) => ({
   cbToolLogoSize: 75,
   titleColor: '#1A1A2E',
   subtitleColor: '#4A5568',
+  cbBorderColor: '#F4F4F4',
+  cbBorderSize: 1,
 
   // Actions
   setBrandId: (id: BrandId) => set(() => {
@@ -132,4 +134,6 @@ export const useEditorStore = create<Store>((set) => ({
   setCbToolLogoSize: (cbToolLogoSize) => set({ cbToolLogoSize }),
   setTitleColor: (titleColor) => set({ titleColor }),
   setSubtitleColor: (subtitleColor) => set({ subtitleColor }),
+  setCbBorderColor: (cbBorderColor) => set({ cbBorderColor }),
+  setCbBorderSize: (cbBorderSize) => set({ cbBorderSize }),
 }));

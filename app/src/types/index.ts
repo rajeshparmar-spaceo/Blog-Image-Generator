@@ -106,6 +106,8 @@ export interface EditorState {
   cbToolLogoSize: number;
   titleColor: string;
   subtitleColor: string;
+  cbBorderColor: string;
+  cbBorderSize: number;
 }
 
 export interface EditorActions {
@@ -161,4 +163,6 @@ export interface EditorActions {
   setCbToolLogoSize: (v: number) => void;
   setTitleColor: (color: string) => void;
   setSubtitleColor: (color: string) => void;
+  setCbBorderColor: (color: string) => void;
+  setCbBorderSize: (size: number) => void;
 }

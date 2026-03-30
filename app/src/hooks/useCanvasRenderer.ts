@@ -52,7 +52,7 @@ export function useCanvasRenderer(canvasRef: RefObject<HTMLCanvasElement | null>
     state.cbImageOffsetX, state.cbImageOffsetY,
     state.cbImageWidth, state.cbImageHeight,
     state.cbTypeCHeadlineWidth, state.cbTypeCSubtitleWidth, state.cbToolNameEnabled, state.cbToolLogoSize,
-    state.titleColor, state.subtitleColor,
+    state.titleColor, state.subtitleColor, state.cbBorderColor, state.cbBorderSize,
     canvasRef,
   ]);
 

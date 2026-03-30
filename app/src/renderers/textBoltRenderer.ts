@@ -21,6 +21,16 @@ export function textBoltRenderer(ctx: CanvasRenderingContext2D, state: EditorSta
   // Logo overlay — full canvas
   const logo = state.logoImages['textbolt'];
   if (logo) ctx.drawImage(logo, 0, 0, W, H);
+
+  // Canvas border
+  const bw = state.cbBorderSize;
+  if (bw > 0) {
+    ctx.save();
+    ctx.strokeStyle = state.cbBorderColor;
+    ctx.lineWidth = bw;
+    ctx.strokeRect(bw / 2, bw / 2, W - bw, H - bw);
+    ctx.restore();
+  }
 }
 
 // ── Warm peach background (TextBolt signature) ────────────────────────────────

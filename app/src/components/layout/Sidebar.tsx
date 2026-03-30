@@ -16,6 +16,7 @@ import { CBTypeBImagePosition } from '../controls/CBTypeBImagePosition';
 import { CBVsLogoUpload } from '../controls/CBVsLogoUpload';
 import { CBToolUpload } from '../controls/CBToolUpload';
 import { CBCostReviewPanel } from '../controls/CBCostReviewPanel';
+import { CBBorderColorPanel } from '../controls/CBBorderColorPanel';
 
 export function Sidebar() {
   const { brandId, variant, imageMode, cbTitlePosition } = useEditorStore();
@@ -134,6 +135,13 @@ export function Sidebar() {
               <>
                 <div className="border-t border-slate-800" />
                 <CBCostReviewPanel />
+              </>
+            )}
+
+            {isCBorTB && (
+              <>
+                <div className="border-t border-slate-800" />
+                <CBBorderColorPanel />
               </>
             )}
           </>
