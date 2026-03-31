@@ -36,3 +36,13 @@ Public/Stock images/
 # Excluded folders
 Public/Icons/Lucide Icons/
 Infographic images/
+
+# Vite cache & default assets
+app/.vite/
+app/vite.svg
+
+# Root-level build artifacts
+assets/
+
+# Archives
+*.zip
