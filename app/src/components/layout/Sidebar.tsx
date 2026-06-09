@@ -10,6 +10,7 @@ import { OverlayPanel } from '../controls/OverlayPanel';
 import { SocLogoGridUpload } from '../controls/SocLogoGridUpload';
 import { AlignmentSelector } from '../controls/AlignmentSelector';
 import { MCBTextWidthPanel } from '../controls/MCBTextWidthPanel';
+import { TextWidthPanel } from '../controls/TextWidthPanel';
 import { CBTitlePositionSelector } from '../controls/CBTitlePositionSelector';
 import { CBTypeBBgPanel } from '../controls/CBTypeBBgPanel';
 import { CBTypeBImagePosition } from '../controls/CBTypeBImagePosition';
@@ -19,7 +20,14 @@ import { CBCostReviewPanel } from '../controls/CBCostReviewPanel';
 import { CBBorderColorPanel } from '../controls/CBBorderColorPanel';
 
 export function Sidebar() {
-  const { brandId, variant, imageMode, cbTitlePosition } = useEditorStore();
+  const {
+    brandId, variant, imageMode, cbTitlePosition,
+    soaHeadlineWidth, soaSubtitleWidth, setSoaHeadlineWidth, setSoaSubtitleWidth,
+    socHeadlineWidth, socSubtitleWidth, setSocHeadlineWidth, setSocSubtitleWidth,
+    soiHeadlineWidth, soiSubtitleWidth, setSoiHeadlineWidth, setSoiSubtitleWidth,
+    taskRhinoHeadlineWidth, taskRhinoSubtitleWidth, setTaskRhinoHeadlineWidth, setTaskRhinoSubtitleWidth,
+    welcoHeadlineWidth, welcoSubtitleWidth, setWelcoHeadlineWidth, setWelcoSubtitleWidth,
+  } = useEditorStore();
 
   const isCB = brandId === 'contentbridge';
   const isTB = brandId === 'textbolt';
@@ -60,6 +68,41 @@ export function Sidebar() {
               <>
                 <div className="border-t border-slate-800" />
                 <MCBTextWidthPanel />
+              </>
+            )}
+
+            {brandId === 'soa' && (
+              <>
+                <div className="border-t border-slate-800" />
+                <TextWidthPanel min={100} max={400} titleWidth={soaHeadlineWidth} subtitleWidth={soaSubtitleWidth} setTitleWidth={setSoaHeadlineWidth} setSubtitleWidth={setSoaSubtitleWidth} />
+              </>
+            )}
+
+            {brandId === 'soc' && (
+              <>
+                <div className="border-t border-slate-800" />
+                <TextWidthPanel min={150} max={700} titleWidth={socHeadlineWidth} subtitleWidth={socSubtitleWidth} setTitleWidth={setSocHeadlineWidth} setSubtitleWidth={setSocSubtitleWidth} />
+              </>
+            )}
+
+            {brandId === 'soi' && (
+              <>
+                <div className="border-t border-slate-800" />
+                <TextWidthPanel min={100} max={600} titleWidth={soiHeadlineWidth} subtitleWidth={soiSubtitleWidth} setTitleWidth={setSoiHeadlineWidth} setSubtitleWidth={setSoiSubtitleWidth} />
+              </>
+            )}
+
+            {brandId === 'taskrhino' && (
+              <>
+                <div className="border-t border-slate-800" />
+                <TextWidthPanel min={200} max={700} titleWidth={taskRhinoHeadlineWidth} subtitleWidth={taskRhinoSubtitleWidth} setTitleWidth={setTaskRhinoHeadlineWidth} setSubtitleWidth={setTaskRhinoSubtitleWidth} />
+              </>
+            )}
+
+            {brandId === 'welco' && (
+              <>
+                <div className="border-t border-slate-800" />
+                <TextWidthPanel min={200} max={750} titleWidth={welcoHeadlineWidth} subtitleWidth={welcoSubtitleWidth} setTitleWidth={setWelcoHeadlineWidth} setSubtitleWidth={setWelcoSubtitleWidth} />
               </>
             )}
 

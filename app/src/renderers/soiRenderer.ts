@@ -15,11 +15,10 @@ export function soiRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   const isWide = state.soiSize === 'wide';
 
   const TEXT_X = isWide ? 55 : 22;
-  const TEXT_MAX_WIDTH = isWide ? 500 : 270;
   const headFontSize = isWide ? 38 : 26;
   const subFontSize = isWide ? 20 : 15;
 
-  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages, titleColor, subtitleColor } = state;
+  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages, titleColor, subtitleColor, soiHeadlineWidth, soiSubtitleWidth } = state;
 
   // 1. Background
   if (stockImage) {
@@ -49,9 +48,9 @@ export function soiRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Pre-wrap to measure block height
   ctx.font = `600 ${headFontSize}px Poppins`;
-  const headLines = wrapText(ctx, headline, TEXT_MAX_WIDTH);
+  const headLines = wrapText(ctx, headline, soiHeadlineWidth);
   ctx.font = `400 ${subFontSize}px Poppins`;
-  const subLines = wrapText(ctx, subtitle, TEXT_MAX_WIDTH);
+  const subLines = wrapText(ctx, subtitle, soiSubtitleWidth);
 
   const barH = isWide ? 4 : 3;
   const barToHead = isWide ? 16 : 9;
@@ -97,7 +96,7 @@ export function soiRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   } else if (variant === 'typeB') {
     drawLogoGrid(ctx, TEXT_X, subY + 12, socLogoGridImages, isWide);
   } else if (variant === 'typeD' && stepItems.length > 0) {
-    drawBulletedFeatureList(ctx, stepItems.slice(0, 5), TEXT_X, subY + 12, TEXT_MAX_WIDTH, PRIMARY);
+    drawBulletedFeatureList(ctx, stepItems.slice(0, 5), TEXT_X, subY + 12, soiSubtitleWidth, PRIMARY);
   }
 
   // 5. Logo — full canvas overlay (standard: 708×374 native, wide: scaled to 1400×748)

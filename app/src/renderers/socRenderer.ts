@@ -9,12 +9,11 @@ import { drawSharedIllustration } from './sharedIllustrations';
 
 const PRIMARY = '#E74C3C';
 const TEXT_X = 60;
-const TEXT_MAX_WIDTH = 420;
 
 export function socRenderer(ctx: CanvasRenderingContext2D, state: EditorState): void {
   const W = 1416;
   const H = 748;
-  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, titleColor, subtitleColor } = state;
+  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, titleColor, subtitleColor, socHeadlineWidth, socSubtitleWidth } = state;
 
   // 1. Background
   if (stockImage) {
@@ -41,9 +40,9 @@ export function socRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Pre-wrap to measure block height
   ctx.font = `600 40px Poppins`;
-  const headLines = wrapText(ctx, headline, TEXT_MAX_WIDTH);
+  const headLines = wrapText(ctx, headline, socHeadlineWidth);
   ctx.font = `500 26px Poppins`;
-  const subLines = wrapText(ctx, subtitle, TEXT_MAX_WIDTH);
+  const subLines = wrapText(ctx, subtitle, socSubtitleWidth);
 
   const barH = 5;
   const barToHead = 20;
@@ -93,7 +92,7 @@ export function socRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   } else if (variant === 'typeB') {
     drawLogoGrid(ctx, TEXT_X, subY + 16, PRIMARY, state.socLogoGridImages);
   } else if (variant === 'typeD' && stepItems.length > 0) {
-    drawBulletedFeatureList(ctx, stepItems.slice(0, 5), TEXT_X, subY + 20, TEXT_MAX_WIDTH, PRIMARY);
+    drawBulletedFeatureList(ctx, stepItems.slice(0, 5), TEXT_X, subY + 20, socSubtitleWidth, PRIMARY);
   }
 
   // 6. Logo — full canvas overlay

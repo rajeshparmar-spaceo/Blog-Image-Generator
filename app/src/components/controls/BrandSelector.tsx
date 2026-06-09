@@ -13,6 +13,8 @@ const BRAND_COLORS: Record<BrandId, string> = {
   textbolt: '#FF6600',
 };
 
+const HIDDEN_BRANDS: BrandId[] = ['welco', 'contentbridge'];
+
 export function BrandSelector() {
   const { brandId, setBrandId } = useEditorStore();
 
@@ -20,7 +22,7 @@ export function BrandSelector() {
     <section>
       <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Brand</label>
       <div className="grid grid-cols-2 gap-1.5">
-        {BRAND_ORDER.map((id) => {
+        {BRAND_ORDER.filter((id) => !HIDDEN_BRANDS.includes(id)).map((id) => {
           const cfg = BRAND_CONFIGS[id];
           const isActive = id === brandId;
           return (

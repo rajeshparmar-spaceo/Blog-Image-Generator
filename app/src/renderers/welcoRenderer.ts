@@ -11,7 +11,7 @@ const PRIMARY = '#004CE6';
 export function welcoRenderer(ctx: CanvasRenderingContext2D, state: EditorState): void {
   const W = 800;
   const H = 600;
-  const { headline, subtitle, variant, selectedIcons, logoImages, sourceContent, titleColor, subtitleColor } = state;
+  const { headline, subtitle, variant, selectedIcons, logoImages, sourceContent, titleColor, subtitleColor, welcoHeadlineWidth, welcoSubtitleWidth } = state;
 
   // 1. Background
   if (variant === 'typeB2') {
@@ -49,7 +49,7 @@ export function welcoRenderer(ctx: CanvasRenderingContext2D, state: EditorState)
   ctx.textBaseline = 'top';
   ctx.font = '600 30px Inter';
   ctx.fillStyle = titleColor;
-  const headLines = wrapText(ctx, headline, 650);
+  const headLines = wrapText(ctx, headline, welcoHeadlineWidth);
   let headY = 50;
   for (const line of headLines) {
     ctx.fillText(line, W / 2, headY);
@@ -59,7 +59,7 @@ export function welcoRenderer(ctx: CanvasRenderingContext2D, state: EditorState)
   // Subtitle (smaller, below headline)
   ctx.font = '400 16px Inter';
   ctx.fillStyle = subtitleColor;
-  const subLines = wrapText(ctx, subtitle, 600);
+  const subLines = wrapText(ctx, subtitle, welcoSubtitleWidth);
   for (const line of subLines) {
     ctx.fillText(line, W / 2, headY + 6);
     headY += 24;

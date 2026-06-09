@@ -9,12 +9,11 @@ import { drawSharedIllustration } from './sharedIllustrations';
 
 const PRIMARY = '#2ECC71';
 const TEXT_X = 22;
-const TEXT_MAX_WIDTH = 270;
 
 export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): void {
   const W = 708;
   const H = 374;
-  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages, titleColor, subtitleColor } = state;
+  const { headline, subtitle, variant, stepItems, selectedIcons, customIconImages, stockImage, logoImages, sourceContent, socLogoGridImages, titleColor, subtitleColor, soaHeadlineWidth, soaSubtitleWidth } = state;
 
   // 1. Background
   if (stockImage) {
@@ -41,9 +40,9 @@ export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
 
   // Pre-wrap to measure block height
   ctx.font = `600 28px Poppins`;
-  const headLines = wrapText(ctx, headline, TEXT_MAX_WIDTH);
+  const headLines = wrapText(ctx, headline, soaHeadlineWidth);
   ctx.font = `400 16px Poppins`;
-  const subLines = wrapText(ctx, subtitle, TEXT_MAX_WIDTH);
+  const subLines = wrapText(ctx, subtitle, soaSubtitleWidth);
 
   const barH = 3;
   const barToHead = 12;
@@ -89,7 +88,7 @@ export function soaRenderer(ctx: CanvasRenderingContext2D, state: EditorState): 
   } else if (variant === 'typeB') {
     drawLogoGrid(ctx, TEXT_X, subY + 12, socLogoGridImages);
   } else if (variant === 'typeD' && stepItems.length > 0) {
-    drawBulletedFeatureList(ctx, stepItems.slice(0, 5), TEXT_X, subY + 12, TEXT_MAX_WIDTH, PRIMARY);
+    drawBulletedFeatureList(ctx, stepItems.slice(0, 5), TEXT_X, subY + 12, soaSubtitleWidth, PRIMARY);
   }
 
   // 6. Logo — full canvas overlay

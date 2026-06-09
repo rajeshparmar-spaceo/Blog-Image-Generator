@@ -7,7 +7,7 @@ import { detectIllustration, drawIllustration } from './taskRhinoIllustrations';
 export function taskRhinoRenderer(ctx: CanvasRenderingContext2D, state: EditorState): void {
   const W = 1365;
   const H = 640;
-  const { headline, subtitle, variant, selectedIcons, logoImages, sourceContent, titleColor, subtitleColor } = state;
+  const { headline, subtitle, variant, selectedIcons, logoImages, sourceContent, titleColor, subtitleColor, taskRhinoHeadlineWidth, taskRhinoSubtitleWidth } = state;
 
   // 1. Lavender gradient background
   const bgGrad = ctx.createLinearGradient(0, 0, W, H);
@@ -49,15 +49,13 @@ export function taskRhinoRenderer(ctx: CanvasRenderingContext2D, state: EditorSt
 
   // 4. Left text zone
   const textX = 55;
-  const textMaxWidth = 540;
-
 
   const headlineFont = '"Fraunces", Georgia, serif';
   ctx.font = `800 52px ${headlineFont}`;
   ctx.fillStyle = titleColor;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'top';
-  const headLines = wrapText(ctx, headline, textMaxWidth);
+  const headLines = wrapText(ctx, headline, taskRhinoHeadlineWidth);
   let headY = 120;
   for (const line of headLines) {
     ctx.fillText(line, textX, headY);
@@ -66,7 +64,7 @@ export function taskRhinoRenderer(ctx: CanvasRenderingContext2D, state: EditorSt
 
   ctx.font = '400 20px Inter';
   ctx.fillStyle = subtitleColor;
-  const subLines = wrapText(ctx, subtitle, textMaxWidth);
+  const subLines = wrapText(ctx, subtitle, taskRhinoSubtitleWidth);
   let subY = headY + 18;
   for (const line of subLines) {
     ctx.fillText(line, textX, subY);
